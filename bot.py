@@ -17,7 +17,8 @@ from dotenv import load_dotenv
 #load file .env config
 load_dotenv()
 
-#.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header), TELEGRAM_GROUP (id group) or TELEGRAM_USER (nicname user).
+#.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header)
+#TELEGRAM_GROUP (id group) or TELEGRAM_USER (nickname user).
 
 try:
     client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
@@ -41,7 +42,7 @@ str_data = web_data.read()
 xml_data = et.fromstring(str_data)
 quoetes_list = xml_data.findall("Valute")
 
-#get USD and EUR from xml - TODO: function will be better. and #TODO:need return full string for telegramm
+#get USD and EUR from xml - TODO: function will be better. and #TODO:need return full string for telegram
 for x in quoetes_list:
   id_v = x.get("ID")
   if id_v == id_dollar:
@@ -59,7 +60,7 @@ def getday():
 		t = r.text
 	except:
 		r = getday()
-#TODO:need return full string for telegramm
+#TODO:need return full string for telegram
 	if t == '1':
 		return 'Сегодня нерабочий день.'
 	elif t == '0' or t == '4':
@@ -76,7 +77,7 @@ def getadvice():
 		t = json.loads(r.text)
 	except:
 		r = getadvice()
-#TODO:need return full string for telegramm
+#TODO:need return full string for telegram
 	return t['text']
 
 #function generate_random_fact
@@ -92,7 +93,7 @@ def generate_random_fact():
 		t = json.loads(r.text)
 	except:
 		r = generate_random_fact()
-#TODO:need return full string for telegramm
+#TODO:need return full string for telegram
 	return t["fact"]["text"]
 
 #function getquoute of day
@@ -102,7 +103,7 @@ def getquote():
 		t = r.text
 	except:
 		r = getquote()
-#TODO:need return full string for telegramm
+#TODO:need return full string for telegram
 	return t
 
 #function get file cat
@@ -114,7 +115,7 @@ def getcat():
         url = getcat()
     return url
 
-#main function for send message to telegramm chat
+#main function for send message to telegram chat
 async def main():
     try:
         ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), "Доброе утро!☝" + getday() + "\n\n<b>Совет дня:</b> " + getadvice() + "\n<b>Факт дня:</b> " + generate_random_fact() + "\n<b>Цитата дня:</b> " + getquote() + "\n\nПогода в Москве: " + str(res.fact.temp) + " °C, ощущается как " + str(res.fact.feels_like) + " °C\n\nUSD <b>" + usd + "</b> руб\nEURO <b>" + eur + "</b> руб", file=getcat(), parse_mode="html")
