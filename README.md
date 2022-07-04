@@ -13,7 +13,7 @@ TELEGRAM_GROUP - группу в телеграм, формат TELEGRAM_GROUP=-
 
 TELEGRAM_USER - юзер в телеграм, формат TELEGRAM_USER="user"
 
-в send_message используем либо user,либо group. ну либо комбинации.
+Функция main в send_message используем либо user,либо group. ну либо комбинации.
 
 get_string_session.py - авторизация в телеге, получаем все данные и засовываем в env файл.
 
