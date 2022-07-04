@@ -1,6 +1,8 @@
 # Бот "Доброе утро" для телеграм, под вашей учеткой!
 ![Screenshot_1](https://user-images.githubusercontent.com/12657938/177186433-e743280a-ecb7-45f1-b59b-930b94ef9d9e.png)
 
+Устанавливаем библиотеки - pip3 install yaweather,dotenv,telethon
+
 TELEGRAM_API_HASH = хэш приложения в телеграм, гуглим как получить.
 
 TELEGRAM_API_ID = id приложения в телеграм, гуглим как получить. 
