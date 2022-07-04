@@ -1,5 +1,5 @@
 # Бот "Доброе утро" для телеграм, под вашей учеткой!
-![Uploading Screenshot_1.png…]()
+![Screenshot_1](https://user-images.githubusercontent.com/12657938/177186433-e743280a-ecb7-45f1-b59b-930b94ef9d9e.png)
 
 TELEGRAM_API_HASH = хэш приложения в телеграм, гуглим как получить.
 
