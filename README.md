@@ -10,6 +10,8 @@ TELEGRAM_API_ID = id приложения в телеграм, гуглим ка
 
 get_string_session.py - авторизация в телеге, получаем TELEGRAM_SESSION_STRING и засовываем в env файл.
 
+CAT_API = ключ api https://thecatapi.com/
+
 WEATHER_API_KEY - ключ апи яндекс погоды.
 
 TELEGRAM_GROUP - группу в телеграм, формат TELEGRAM_GROUP=-1234567890
