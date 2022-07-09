@@ -4,6 +4,7 @@ import os
 import requests
 import json
 import datetime
+import time
 
 from yaweather import Russia, YaWeather
 
@@ -18,7 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header)
-#TELEGRAM_GROUP (id group) or TELEGRAM_USER (nickname user).
+# TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nicname" user like "test").
 
 try:
     client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
@@ -32,7 +33,11 @@ else:
 y = YaWeather(api_key=os.getenv("WEATHER_API_KEY"))
 #current space for weather
 res = y.forecast(Russia.Moscow)
+#return full string for telegram "text" + temp
+get_temp = "\n\nПогода в Москве: " + str(res.fact.temp) + " °C"
+get_temp_feels_like = ", ощущается как " + str(res.fact.feels_like) + " °C"
 
+#USD + EURO
 # parse euro + dollar from cbr xml format.
 id_dollar = "R01235"
 id_euro = "R01239"
@@ -42,33 +47,34 @@ str_data = web_data.read()
 xml_data = et.fromstring(str_data)
 quoetes_list = xml_data.findall("Valute")
 
-#get USD and EUR from xml - TODO: function will be better. and #TODO:need return full string for telegram
+#get USD and EUR from xml - TODO: function will be better.
 for x in quoetes_list:
   id_v = x.get("ID")
   if id_v == id_dollar:
-    usd = (x.find("Value").text)
+    usd = "\n\nUSD <b>" + (x.find("Value").text) + "</b> руб"
   if id_v == id_euro:
-    eur = (x.find("Value").text)
+    eur = "\nEURO <b>" + (x.find("Value").text) + "</b> руб"
 
 #function getday for working from work calendar
 #get current date/time
 today = datetime.datetime.today()
 
+#function getday
 def getday():
 	try:
 		r = requests.get("https://isdayoff.ru/api/getdata?year=" + today.strftime("%Y") + "&month=" + today.strftime("%m") + "&day=" + today.strftime("%d"))
 		t = r.text
 	except:
 		r = getday()
-#TODO:need return full string for telegram
+#return full string for telegram "text" + getday()
 	if t == '1':
-		return 'Сегодня нерабочий день.'
+		return 'Доброе утро!☝ Сегодня нерабочий день.'
 	elif t == '0' or t == '4':
-		return 'Сегодня рабочий день.'
+		return 'Доброе утро!☝ Сегодня рабочий день.'
 	elif t == '2':
-		return 'Сегодня сокращённый рабочий день.'
+		return 'Доброе утро!☝ Сегодня сокращённый рабочий день.'
 	else:
-		return 'Сегодня ХЗ какой день.'
+		return 'Доброе утро!☝ Сегодня ХЗ какой день.'
 
 #function advice of day
 def getadvice():
@@ -77,24 +83,24 @@ def getadvice():
 		t = json.loads(r.text)
 	except:
 		r = getadvice()
-#TODO:need return full string for telegram
-	return t['text']
+#return full string for telegram "text" + getadvice()
+	return "\n\n<b>Совет дня:</b> " + t['text']
 
-#function generate_random_fact
 
 #need header for post, doing it
 header = {
 	"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
 	"X-Requested-With": "XMLHttpRequest"}
 
+#function generate_random_fact
 def generate_random_fact():
 	try:
 		r = requests.post("https://randstuff.ru/fact/generate/", headers = header)
 		t = json.loads(r.text)
 	except:
 		r = generate_random_fact()
-#TODO:need return full string for telegram
-	return t["fact"]["text"]
+#return full string for telegram "text" + generate_random_fact()
+	return "\n<b>Факт дня:</b> " + t["fact"]["text"]
 
 #function getquoute of day
 def getquote():
@@ -103,8 +109,8 @@ def getquote():
 		t = r.text
 	except:
 		r = getquote()
-#TODO:need return full string for telegram
-	return t
+#return full string for telegram "text" + getquote()
+	return "\n<b>Цитата дня:</b> " + t
 
 #function get file cat
 def getcat():
@@ -118,7 +124,7 @@ def getcat():
 #main function for send message to telegram chat
 async def main():
     try:
-        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), "Доброе утро!☝" + getday() + "\n\n<b>Совет дня:</b> " + getadvice() + "\n<b>Факт дня:</b> " + generate_random_fact() + "\n<b>Цитата дня:</b> " + getquote() + "\n\nПогода в Москве: " + str(res.fact.temp) + " °C, ощущается как " + str(res.fact.feels_like) + " °C\n\nUSD <b>" + usd + "</b> руб\nEURO <b>" + eur + "</b> руб", file=getcat(), parse_mode="html")
+        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), getday() + getadvice() + generate_random_fact() + getquote() + get_temp + get_temp_feels_like + usd + eur, file=getcat(), parse_mode="html")
     except Exception as e:
         print(f"Exception while sending the message - {e}")
     else:
