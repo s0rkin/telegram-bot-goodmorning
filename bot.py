@@ -115,7 +115,7 @@ def get_quote():
 #function get file cat
 def get_cat():
     try:
-        r = requests.get('http://thecatapi.com/api/images/get?format=src')
+        r = requests.get('https://api.thecatapi.com/api/images/get?mime_types=jpg,png?format=src')
         url = r.url
     except:
         url = get_cat()
