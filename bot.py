@@ -51,22 +51,22 @@ quoetes_list = xml_data.findall("Valute")
 for x in quoetes_list:
   id_v = x.get("ID")
   if id_v == id_dollar:
-    usd = "\n\nUSD <b>" + (x.find("Value").text) + "</b> руб"
+    get_usd = "\n\nUSD <b>" + (x.find("Value").text) + "</b> руб"
   if id_v == id_euro:
-    eur = "\nEURO <b>" + (x.find("Value").text) + "</b> руб"
+    get_eur = "\nEURO <b>" + (x.find("Value").text) + "</b> руб"
 
-#function getday for working from work calendar
+#function get_day for working from work calendar
 #get current date/time
 today = datetime.datetime.today()
 
-#function getday
-def getday():
+#function get_day
+def get_day():
 	try:
 		r = requests.get("https://isdayoff.ru/api/getdata?year=" + today.strftime("%Y") + "&month=" + today.strftime("%m") + "&day=" + today.strftime("%d"))
 		t = r.text
 	except:
-		r = getday()
-#return full string for telegram "text" + getday()
+		r = get_day()
+#return full string for telegram "text" + get_day()
 	if t == '1':
 		return 'Доброе утро!☝ Сегодня нерабочий день.'
 	elif t == '0' or t == '4':
@@ -76,14 +76,14 @@ def getday():
 	else:
 		return 'Доброе утро!☝ Сегодня ХЗ какой день.'
 
-#function advice of day
-def getadvice():
+#function get_advice of day
+def get_advice():
 	try:
 		r = requests.get("https://fucking-great-advice.ru/api/random")
 		t = json.loads(r.text)
 	except:
-		r = getadvice()
-#return full string for telegram "text" + getadvice()
+		r = get_advice()
+#return full string for telegram "text" + get_advice()
 	return "\n\n<b>Совет дня:</b> " + t['text']
 
 
@@ -92,39 +92,39 @@ header = {
 	"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
 	"X-Requested-With": "XMLHttpRequest"}
 
-#function generate_random_fact
-def generate_random_fact():
+#function get_random_fact
+def get_random_fact():
 	try:
 		r = requests.post("https://randstuff.ru/fact/generate/", headers = header)
 		t = json.loads(r.text)
 	except:
-		r = generate_random_fact()
-#return full string for telegram "text" + generate_random_fact()
+		r = get_random_fact()
+#return full string for telegram "text" + get_random_fact()
 	return "\n<b>Факт дня:</b> " + t["fact"]["text"]
 
-#function getquoute of day
-def getquote():
+#function get_quote of day
+def get_quote():
 	try:
 		r = requests.get("https://api.forismatic.com/api/1.0/?method=getQuote&format=text&lang=ru")
 		t = r.text
 	except:
-		r = getquote()
-#return full string for telegram "text" + getquote()
+		r = get_quote()
+#return full string for telegram "text" + get_quote()
 	return "\n<b>Цитата дня:</b> " + t
 
 #function get file cat
-def getcat():
+def get_cat():
     try:
         r = requests.get('http://thecatapi.com/api/images/get?format=src')
         url = r.url
     except:
-        url = getcat()
+        url = get_cat()
     return url
 
 #main function for send message to telegram chat
 async def main():
     try:
-        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), getday() + getadvice() + generate_random_fact() + getquote() + get_temp + get_temp_feels_like + usd + eur, file=getcat(), parse_mode="html")
+        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), get_day() + get_advice() + get_random_fact() + get_quote() + get_temp + get_temp_feels_like + get_usd + get_eur, file=get_cat(), parse_mode="html")
     except Exception as e:
         print(f"Exception while sending the message - {e}")
     else:
