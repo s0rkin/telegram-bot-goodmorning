@@ -6,7 +6,6 @@ import json
 import datetime
 import time
 
-#TODO: IF NEED YANDEX
 #from yaweather import Russia, YaWeather
 
 import urllib.request as url
@@ -20,7 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header)
-# TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nickname" user like "test").
+# TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nicname" user like "test").
 
 try:
     client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
@@ -30,7 +29,8 @@ except Exception as e:
 else:
     print("Client started")
 
-#TODO: IF NEED YANDEX
+#YANDEX if need
+
 #get weather res.fact.temp and res.fact.feels_like, see api yaweather.
 #y = YaWeather(api_key=os.getenv("WEATHER_API_KEY"))
 #current space for weather
@@ -40,13 +40,15 @@ else:
 #get_temp_feels_like = ", ощущается как " + str(res.fact.feels_like) + " °C"
 
 #get_weather new from openweathermap 
+
 def get_weather():
 	try:
-		r = requests.get("https://api.openweathermap.org/data/2.5/weather", params={'id': 524901, 'type': 'like', 'units': 'metric', 'lang': 'ru', 'APPID': os.getenv("WEATHER_API_KEY")})
+		r = requests.get("https://api.openweathermap.org/data/2.5/weather", params={"id": 524901, "type": "like", "units": "metric", "lang": "ru", "APPID": os.getenv("WEATHER_API_KEY")})
 		t = json.loads(r.text)
 	except:
 		r = get_weather()
-	return "\n\nПогода в Москве: " + (str(int(t["main"]["temp"]))) + "°C " + t['weather'][0]['description'] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
+	return "\n\nПогода в Москве: " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
+
 
 #USD + EURO
 # parse euro + dollar from cbr xml format.
@@ -78,14 +80,14 @@ def get_day():
 	except:
 		r = get_day()
 #return full string for telegram "text" + get_day()
-	if t == '1':
-		return 'Доброе утро!☝ Сегодня нерабочий день.'
-	elif t == '0' or t == '4':
-		return 'Доброе утро!☝ Сегодня рабочий день.'
-	elif t == '2':
-		return 'Доброе утро!☝ Сегодня сокращённый рабочий день.'
+	if t == "1":
+		return "Доброе утро!☝ Сегодня нерабочий день."
+	elif t == "0" or t == "4":
+		return "Доброе утро!☝ Сегодня рабочий день."
+	elif t == "2":
+		return "Доброе утро!☝ Сегодня сокращённый рабочий день."
 	else:
-		return 'Доброе утро!☝ Сегодня ХЗ какой день.'
+		return "Доброе утро!☝ Сегодня ХЗ какой день."
 
 #function get_advice of day
 def get_advice():
@@ -95,7 +97,7 @@ def get_advice():
 	except:
 		r = get_advice()
 #return full string for telegram "text" + get_advice()
-	return "\n\n<b>Совет дня:</b> " + t['text']
+	return "\n\n<b>Совет дня:</b> " + t["text"]
 
 
 #need header for post, doing it
@@ -116,7 +118,7 @@ def get_random_fact():
 #function get_quote of day
 def get_quote():
 	try:
-		r = requests.get("https://api.forismatic.com/api/1.0/", params={'method': 'getQuote', 'format': 'text', 'lang': 'ru'})
+		r = requests.get("https://api.forismatic.com/api/1.0/", params={"method": "getQuote", "format": "text", "lang": "ru"})
 		t = r.text
 	except:
 		r = get_quote()
@@ -126,7 +128,7 @@ def get_quote():
 #function get file cat
 def get_cat():
     try:
-        r = requests.get("https://api.thecatapi.com/api/images/get", params={'api_key': os.getenv("CAT_API"), 'mime_types': 'jpg,png', 'format': 'src'})
+        r = requests.get("https://api.thecatapi.com/api/images/get", params={"api_key": os.getenv("CAT_API"), "mime_types": "jpg,png", "format": "src"})
         url = r.url
     except:
         url = get_cat()
@@ -136,7 +138,7 @@ def get_cat():
 async def main():
     try:
         ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), get_day() + get_advice() + get_random_fact() + get_quote() + get_weather() + get_usd + get_eur, file=get_cat(), parse_mode="html")
-    except Exception as e:
+   except Exception as e:
         print(f"Exception while sending the message - {e}")
     else:
         print(f"Message sent. Return Value {ret_value}")
