@@ -6,7 +6,7 @@ import json
 import datetime
 import time
 
-#TODO: IF NEEED YANDEX
+#TODO: IF NEED YANDEX
 #from yaweather import Russia, YaWeather
 
 import urllib.request as url
@@ -30,7 +30,7 @@ except Exception as e:
 else:
     print("Client started")
 
-#TODO: IF NEEED YANDEX
+#TODO: IF NEED YANDEX
 #get weather res.fact.temp and res.fact.feels_like, see api yaweather.
 #y = YaWeather(api_key=os.getenv("WEATHER_API_KEY"))
 #current space for weather
