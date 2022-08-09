@@ -73,7 +73,7 @@ today = datetime.datetime.today()
 #function get_day
 def get_day():
 	try:
-		r = requests.get("https://isdayoff.ru/api/getdata?year=" + today.strftime("%Y") + "&month=" + today.strftime("%m") + "&day=" + today.strftime("%d"))
+		r = requests.get("https://isdayoff.ru/api/getdata", params={"year": today.strftime("%Y"), "month": today.strftime("%m"), "day": today.strftime("%d")})
 		t = r.text
 	except:
 		r = get_day()
@@ -116,7 +116,7 @@ def get_random_fact():
 #function get_quote of day
 def get_quote():
 	try:
-		r = requests.get("https://api.forismatic.com/api/1.0/?method=getQuote&format=text&lang=ru")
+		r = requests.get("https://api.forismatic.com/api/1.0/", params={'method': 'getQuote', 'format': 'text', 'lang': 'ru'})
 		t = r.text
 	except:
 		r = get_quote()
@@ -126,7 +126,7 @@ def get_quote():
 #function get file cat
 def get_cat():
     try:
-        r = requests.get("https://api.thecatapi.com/api/images/get?api_key=" + os.getenv("CAT_API") + "?mime_types=jpg,png?format=src")
+        r = requests.get("https://api.thecatapi.com/api/images/get", params={'api_key': os.getenv("CAT_API"), 'mime_types': 'jpg,png', 'format': 'src'})
         url = r.url
     except:
         url = get_cat()
