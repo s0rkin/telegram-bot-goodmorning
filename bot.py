@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header)
-# TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nicname" user like "test").
+# TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nickname" user like "test").
 
 try:
     client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
