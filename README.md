@@ -12,7 +12,7 @@ get_string_session.py - авторизация в телеге, получаем
 
 CAT_API = ключ api https://thecatapi.com/
 
-WEATHER_API_KEY - ключ апи яндекс погоды.
+WEATHER_API_KEY - ключ апи openweathermap или yandex (закомментил в коде).
 
 TELEGRAM_GROUP - группу в телеграм, формат TELEGRAM_GROUP=-1234567890
 
