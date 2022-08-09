@@ -6,7 +6,8 @@ import json
 import datetime
 import time
 
-from yaweather import Russia, YaWeather
+#TODO: IF NEEED YANDEX
+#from yaweather import Russia, YaWeather
 
 import urllib.request as url
 import xml.etree.ElementTree as et
@@ -29,13 +30,23 @@ except Exception as e:
 else:
     print("Client started")
 
+#TODO: IF NEEED YANDEX
 #get weather res.fact.temp and res.fact.feels_like, see api yaweather.
-y = YaWeather(api_key=os.getenv("WEATHER_API_KEY"))
+#y = YaWeather(api_key=os.getenv("WEATHER_API_KEY"))
 #current space for weather
-res = y.forecast(Russia.Moscow)
+#res = y.forecast(Russia.Moscow)
 #return full string for telegram "text" + temp
-get_temp = "\n\nПогода в Москве: " + str(res.fact.temp) + " °C"
-get_temp_feels_like = ", ощущается как " + str(res.fact.feels_like) + " °C"
+#get_temp = "\n\nПогода в Москве: " + str(res.fact.temp) + " °C"
+#get_temp_feels_like = ", ощущается как " + str(res.fact.feels_like) + " °C"
+
+#get_weather new from openweathermap 
+def get_weather():
+	try:
+		r = requests.get("https://api.openweathermap.org/data/2.5/weather", params={'id': 524901, 'type': 'like', 'units': 'metric', 'lang': 'ru', 'APPID': os.getenv("WEATHER_API_KEY")})
+		t = json.loads(r.text)
+	except:
+		r = get_weather()
+	return "\n\nПогода в Москве: " + (str(int(t["main"]["temp"]))) + "°C " + t['weather'][0]['description'] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
 
 #USD + EURO
 # parse euro + dollar from cbr xml format.
@@ -51,9 +62,9 @@ quoetes_list = xml_data.findall("Valute")
 for x in quoetes_list:
   id_v = x.get("ID")
   if id_v == id_dollar:
-    get_usd = "\n\nUSD <b>" + (x.find("Value").text) + "</b> руб"
+    get_usd = "\n\nUSD <b>" + (x.find("Value").text[:-2]) + "</b> руб"
   if id_v == id_euro:
-    get_eur = "\nEURO <b>" + (x.find("Value").text) + "</b> руб"
+    get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
 
 #function get_day for working from work calendar
 #get current date/time
@@ -124,7 +135,7 @@ def get_cat():
 #main function for send message to telegram chat
 async def main():
     try:
-        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), get_day() + get_advice() + get_random_fact() + get_quote() + get_temp + get_temp_feels_like + get_usd + get_eur, file=get_cat(), parse_mode="html")
+        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), get_day() + get_advice() + get_random_fact() + get_quote() + get_weather() + get_usd + get_eur, file=get_cat(), parse_mode="html")
     except Exception as e:
         print(f"Exception while sending the message - {e}")
     else:
