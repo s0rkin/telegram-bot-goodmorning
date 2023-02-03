@@ -74,17 +74,17 @@ today = datetime.datetime.today()
 #function get_day
 def get_day():
     try:
-        r = requests.get("https://isdayoff.ru/api/getdata", params={"year": today.strftime("%Y"), "month": today.strftime("%m"), "day": today.strftime("%d")})
-        t = r.text
+        r = requests.get("https://api.sm.su/v1/calendar/business/", headers = header, params={"day": today.strftime("%Y-%m-%d")})
+        t = json.loads(r.text)
     except:
         r = get_day()
 #return full string for telegram "text" + get_day()
-    if t == "1":
-        return "Доброе утро!☝ Сегодня нерабочий день."
-    elif t == "0" or t == "4":
-        return "Доброе утро!☝ Сегодня рабочий день."
-    elif t == "2":
-        return "Доброе утро!☝ Сегодня сокращённый рабочий день."
+    if t["work"] == "1":
+        return "Доброе утро!☝ Сегодня " + t["type"] + "."
+    elif t["work"] == "0" and (t["zag"] == "Календарный выходной день" or t["zag"] == "Перенесенный день"):
+        return "Доброе утро!☝ Сегодня " + t["type"] + "."
+    elif t["work"] == "0":
+        return "Доброе утро!☝ Сегодня " + t["type"] + ". " + t["zag"] + "."
     else:
         return "Доброе утро!☝ Сегодня ХЗ какой день."
 
