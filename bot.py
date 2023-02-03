@@ -1,9 +1,11 @@
 #! /usr/bin/env python3
-        """
-        @Author: s0rkin
-        @Date: Jul 4, 2022
-        @Links: https://github.com/s0rkin/
-        """
+# -*- coding: utf-8 -*-
+#----------------------------------------------------------------------------
+# Created By  : s0rkin
+# Created Date: Jul 4, 2022
+# Links : https://github.com/s0rkin/
+# version ='1.0'
+# ---------------------------------------------------------------------------
 import os
 import requests
 import json
@@ -65,7 +67,7 @@ def get_weather():
 id_dollar = "R01235"
 id_euro = "R01239"
 
-web_data = url.urlopen("http://www.cbr.ru/scripts/XML_daily.asp", headers = header)
+web_data = url.urlopen("http://www.cbr.ru/scripts/XML_daily.asp")
 str_data = web_data.read()
 xml_data = et.fromstring(str_data)
 quoetes_list = xml_data.findall("Valute")
