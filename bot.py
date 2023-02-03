@@ -50,7 +50,7 @@ else:
 
 def get_weather():
     try:
-        r = requests.get("https://api.openweathermap.org/data/2.5/weather", params={"id": 524901, "type": "like", "units": "metric", "lang": "ru", "APPID": os.getenv("WEATHER_API_KEY")})
+        r = requests.get("https://api.openweathermap.org/data/2.5/weather", headers = header, params={"id": 524901, "type": "like", "units": "metric", "lang": "ru", "APPID": os.getenv("WEATHER_API_KEY")})
         t = json.loads(r.text)
     except:
         r = get_weather()
@@ -61,7 +61,7 @@ def get_weather():
 id_dollar = "R01235"
 id_euro = "R01239"
 
-web_data = url.urlopen("http://www.cbr.ru/scripts/XML_daily.asp")
+web_data = url.urlopen("http://www.cbr.ru/scripts/XML_daily.asp", headers = header)
 str_data = web_data.read()
 xml_data = et.fromstring(str_data)
 quoetes_list = xml_data.findall("Valute")
@@ -94,7 +94,7 @@ def get_day():
 #function get_advice of day
 def get_advice():
     try:
-        r = requests.get("https://fucking-great-advice.ru/api/random")
+        r = requests.get("https://fucking-great-advice.ru/api/random", headers = header)
         t = json.loads(r.text)
     except:
         r = get_advice()
@@ -114,7 +114,7 @@ def get_random_fact():
 #function get_quote of day
 def get_quote():
     try:
-        r = requests.get("https://api.forismatic.com/api/1.0/", params={"method": "getQuote", "format": "text", "lang": "ru"})
+        r = requests.get("https://api.forismatic.com/api/1.0/", headers = header, params={"method": "getQuote", "format": "text", "lang": "ru"})
         t = r.text
     except:
         r = get_quote()
@@ -124,7 +124,7 @@ def get_quote():
 #function get file cat
 def get_cat():
     try:
-        r = requests.get("https://api.thecatapi.com/api/images/get", params={"api_key": os.getenv("CAT_API"), "mime_types": "jpg,png", "format": "src"})
+        r = requests.get("https://api.thecatapi.com/api/images/get", headers = header, params={"api_key": os.getenv("CAT_API"), "mime_types": "jpg,png", "format": "src"})
         url = r.url
     except:
         url = get_cat()
