@@ -18,6 +18,11 @@ from dotenv import load_dotenv
 #load file .env config
 load_dotenv()
 
+#need header for post requests, doing it
+header = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+    "X-Requested-With": "XMLHttpRequest"}
+
 #.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header)
 # TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nickname" user like "test").
 
@@ -97,11 +102,6 @@ def get_advice():
         r = get_advice()
 #return full string for telegram "text" + get_advice()
     return "\n\n<b>Совет дня:</b> " + t["text"]
-
-#need header for post, doing it
-header = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
-    "X-Requested-With": "XMLHttpRequest"}
 
 #function get_random_fact
 def get_random_fact():
