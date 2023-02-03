@@ -22,6 +22,8 @@ load_dotenv()
 header = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
     "X-Requested-With": "XMLHttpRequest"}
+#get current date/time
+today = datetime.datetime.today()
 
 #.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header)
 # TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nickname" user like "test").
@@ -73,10 +75,6 @@ for x in quoetes_list:
         get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
 
 #function get_day for working from work calendar
-#get current date/time
-today = datetime.datetime.today()
-
-#function get_day
 def get_day():
     try:
         r = requests.get("https://api.sm.su/v1/calendar/business/", headers = header, params={"day": today.strftime("%Y-%m-%d")})
