@@ -1,5 +1,9 @@
 #! /usr/bin/env python3
-
+        """
+        @Author: s0rkin
+        @Date: Jul 4, 2022
+        @Links: https://github.com/s0rkin/
+        """
 import os
 import requests
 import json
