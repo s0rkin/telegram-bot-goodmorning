@@ -35,7 +35,7 @@ today = datetime.datetime.today()
 # TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nickname" user like "test").
 
 #TODO: all except need refact. need add 2 url's if api unavailable. catch default if 2 unavailable.
-#TODO: all def needs need individual files
+#TODO: all def needs individual files
 #TODO: bot.py => main.py
 #TODO: need add def all time online on/off setting
 #TODO: need add parse commands !cat !boobs and etc.
