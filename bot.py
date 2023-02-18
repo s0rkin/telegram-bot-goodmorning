@@ -34,6 +34,12 @@ today = datetime.datetime.today()
 #.env strings - TELEGRAM_STRING_SESSION, TELEGRAM_API_ID, TELEGRAM_API_HASH, WEATHER_API_KEY (for yandex), HEADER (brawser header)
 # TELEGRAM_GROUP (id group like -1234567 (int)) or TELEGRAM_USER ("nickname" user like "test").
 
+#TODO: all except need refact. need add 2 url's if api unavailable. catch default if 2 unavailable.
+#TODO: all def needs need individual files
+#TODO: bot.py => main.py
+#TODO: need add def all time online on/off setting
+#TODO: need add parse commands !cat !boobs and etc.
+
 try:
     client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
     client.start()
