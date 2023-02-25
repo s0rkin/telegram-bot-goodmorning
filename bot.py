@@ -40,6 +40,9 @@ today = datetime.datetime.today()
 #TODO: need add def all time online on/off setting
 #TODO: need add parse commands !cat !boobs and etc.
 
+print("---------------------------------------------------------------------------")
+print(today)
+
 try:
     client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
     client.start()
