@@ -26,8 +26,9 @@ load_dotenv()
 
 #need header for post requests, doing it
 header = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
     "X-Requested-With": "XMLHttpRequest"}
+
 #get current date/time
 today = datetime.datetime.today()
 
