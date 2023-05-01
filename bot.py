@@ -244,7 +244,7 @@ def get_cat(num_retries = 10):
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
-                url = get_cat(num_retries - 1)
+                r = get_cat(num_retries - 1)
                 print("CURRENT RETRY (get_cat): " + num_retries)
             else:
                 print("API (get_cat) ERROR! 10 retries expired!")
