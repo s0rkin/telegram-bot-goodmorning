@@ -135,22 +135,34 @@ def get_weather(num_retries = 10):
 
 #USD + EURO
 # parse euro + dollar from cbr xml format.
-#TODO: function with except and text errors. refactoring and etc.
 id_dollar = "R01235"
 id_euro = "R01239"
 
-web_data = url.urlopen("http://www.cbr.ru/scripts/XML_daily.asp")
-str_data = web_data.read()
-xml_data = et.fromstring(str_data)
-quoetes_list = xml_data.findall("Valute")
+def get_valute(num_retries = 10):
+    for attempt_no in range(num_retries):
+        try:
+            web_data = url.urlopen("http://www.cbr.ru/scripts/XML_daily.asp")
+            str_data = web_data.read()
+            xml_data = et.fromstring(str_data)
+            quoetes_list = xml_data.findall("Valute")
 
-#get USD and EUR from xml - TODO: function will be better.
-for x in quoetes_list:
-    id_v = x.get("ID")
-    if id_v == id_dollar:
-        get_usd = "\n\nUSD <b>" + (x.find("Value").text[:-2]) + "</b> руб"
-    if id_v == id_euro:
-        get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
+            #get USD and EUR from xml
+            for x in quoetes_list:
+                id_v = x.get("ID")
+                if id_v == id_dollar:
+                    get_usd = "\n\nUSD <b>" + (x.find("Value").text[:-2]) + "</b> руб"
+                if id_v == id_euro:
+                    get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
+
+        except:
+            if attempt_no < (num_retries - 1):
+                time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
+                web_data = get_day(num_retries - 1)
+                print("CURRENT RETRY (get_valute): " + num_retries)
+            else:
+                print("API (get_valute) ERROR! 10 retries expired!")
+                return "\n\nUSD: error 0 руб." + "\nUERO: error 0 руб."
+        return get_usd + get_eur
 
 #function get_day for working from work calendar
 def get_day(num_retries = 10):
@@ -256,7 +268,7 @@ else:
 async def main():
     try:
         uploaded = await client.upload_file(yaMusic_file())
-        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), get_day() + get_advice() + get_random_fact() + get_quote() + get_weather() + "\n\n" + yaMusic_chart() + get_usd + get_eur, file=get_cat(), parse_mode="html")
+        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), get_day() + get_advice() + get_random_fact() + get_quote() + get_weather() + "\n\n" + yaMusic_chart() + get_valute(), file=get_cat(), parse_mode="html")
         ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), "Трек дня! ☝☝☝", file=uploaded, parse_mode="html")
     except Exception as e:
         print(f"Exception while sending the message - {e}")
