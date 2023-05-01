@@ -1,9 +1,11 @@
 # Бот "Доброе утро" для телеграм, под вашей учеткой!
 # BOT "Good morning" for telegram, on your profile!
-![Screenshot_1](https://user-images.githubusercontent.com/12657938/177186433-e743280a-ecb7-45f1-b59b-930b94ef9d9e.png)
-</br>
+![Screenshot_1](https://user-images.githubusercontent.com/12657938/235433875-c5600564-c704-4165-a623-417c6590e468.png)
+![Screenshot_2](https://user-images.githubusercontent.com/12657938/235433924-9e9af9e4-521d-4e42-bb51-96fc7ff224a4.png)
+
 <p>Устанавливаем библиотеки:</p>
 <p>Installing libraries:</p>
+
 <code>pip3 install -r ./requirements.txt</code>
 </br>
 </br>
