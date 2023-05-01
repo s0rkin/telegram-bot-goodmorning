@@ -106,14 +106,6 @@ def yaMusic_file(num_retries = 10):
 
 #END YANDEX MUSIC
 
-try:
-    client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
-    client.start()
-except Exception as e:
-    print(f"Exception while starting the client - {e}")
-else:
-    print("Client started")
-
 #YANDEX WEATHER if need
 
 #get weather res.fact.temp and res.fact.feels_like, see api yaweather.
@@ -250,6 +242,15 @@ def get_cat(num_retries = 10):
                 print("API (get_cat) ERROR! 10 retries expired!")
                 return "https://test.ru/404.jpg" #need 404 url foto
         return url
+
+#TELEGRAM: Ready to connect telegram api and send message.
+try:
+    client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
+    client.start()
+except Exception as e:
+    print(f"Exception while starting the client - {e}")
+else:
+    print("Client started")
 
 #main function for send message to telegram chat
 async def main():
