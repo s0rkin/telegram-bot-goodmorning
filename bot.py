@@ -105,21 +105,9 @@ def yaMusic_file(num_retries = 10):
                 raise
                 #TODO: need return random mp3 file from /home/user + text if api error or something got error.
         return musicFilePath
-
 #END YANDEX MUSIC
 
-#YANDEX WEATHER if need
-
-#get weather res.fact.temp and res.fact.feels_like, see api yaweather.
-#y = YaWeather(api_key=os.getenv("WEATHER_API_KEY"))
-#current space for weather
-#res = y.forecast(Russia.Moscow)
-#return full string for telegram "text" + temp
-#get_temp = "\n\nПогода в Москве: " + str(res.fact.temp) + " °C"
-#get_temp_feels_like = ", ощущается как " + str(res.fact.feels_like) + " °C"
-
-#get_weather new from openweathermap 
-
+#function get_weather new from openweathermap 
 def get_weather(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
@@ -135,7 +123,7 @@ def get_weather(num_retries = 10):
                 return "\n\nПогода в Москве: не удалось получить, API ERROR! 10 retries expired!"
         return "\n\nПогода в Москве: " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
 
-#USD + EURO
+#function get_valute
 # parse euro + dollar from cbr xml format.
 id_dollar = "R01235"
 id_euro = "R01239"
@@ -220,7 +208,7 @@ def get_random_fact(num_retries = 10):
             else:
                 print("API (get_random_fact) ERROR! 10 retries expired!")
                 return "\n<b>Факт дня:</b> get_random_fact API ERROR! 10 retries expired!"
-    #return full string for telegram "text" + get_random_fact()
+        #return full string for telegram "text" + get_random_fact()
         return "\n<b>Факт дня:</b> " + t["fact"]["text"]
 
 #function get_quote of day
