@@ -39,7 +39,7 @@
 <p>Функция main в send_message используем либо user,либо group. ну либо комбинации.</p>
 <p>The main function in send_message uses either user or group. well, or combinations.</p>
 </br>
-<p>далее запускаем по крону bot.py, например так - </p>
+<p>далее запускаем по крону bot.py, например так с логированием - </p>
 <p>next, run on the cron bot.py for example, like this with loging - </p>
 </br>
   <code>0 10 * * * /usr/bin/python3/home/user/bot.py >> /var/log/bot.log</code>
