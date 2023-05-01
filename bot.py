@@ -256,7 +256,7 @@ def get_cat(num_retries = 10):
                 return "https://test.ru/404.jpg" #need 404 url foto
         return url
 
-#TELEGRAM: Ready to connect telegram api and send message.
+#TELEGRAM: Start client.
 try:
     client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
     client.start()
