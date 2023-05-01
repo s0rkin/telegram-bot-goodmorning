@@ -42,4 +42,4 @@
 <p>далее запускаем по крону bot.py, например так с логированием - </p>
 <p>next, run on the cron bot.py for example, like this with loging - </p>
 </br>
-  <code>0 10 * * * /usr/bin/python3/home/user/bot.py >> /var/log/bot.log</code>
+  <code>0 10 * * * /usr/bin/python3 /home/user/bot.py >> /var/log/bot.log</code>
