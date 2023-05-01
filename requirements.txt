@@ -18,3 +18,4 @@ typing-extensions==4.3.0
 urllib3==1.26.9
 yarl==1.7.2
 yaweather==1.2.2
+yandex-music==2.0.1
