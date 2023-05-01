@@ -1,6 +1,6 @@
 # Бот "Доброе утро" для телеграм, под вашей учеткой!
 # BOT "Good morning" for telegram, on your profile!
-![Screenshot_1](https://user-images.githubusercontent.com/12657938/235433875-c5600564-c704-4165-a623-417c6590e468.png)
+![Screenshot_1](https://user-images.githubusercontent.com/12657938/235433999-d8163841-6a49-49e1-a67c-31f1a71cb5d5.png)
 ![Screenshot_2](https://user-images.githubusercontent.com/12657938/235433924-9e9af9e4-521d-4e42-bb51-96fc7ff224a4.png)
 
 <p>Устанавливаем библиотеки:</p>
