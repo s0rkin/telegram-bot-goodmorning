@@ -157,7 +157,7 @@ def get_valute(num_retries = 10):
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
-                web_data = get_day(num_retries - 1)
+                web_data = get_valute(num_retries - 1)
                 print("CURRENT RETRY (get_valute): " + num_retries)
             else:
                 print("API (get_valute) ERROR! 10 retries expired!")
