@@ -153,7 +153,6 @@ def get_valute(num_retries = 10):
                     get_usd = "\n\nUSD <b>" + (x.find("Value").text[:-2]) + "</b> руб"
                 if id_v == id_euro:
                     get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
-
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
