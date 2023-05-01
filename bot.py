@@ -81,6 +81,8 @@ def yaMusic_chart(num_retries = 10):
                 #TODO: need return text if api error or something got error. sothing like this: Yandex API error: unavailable chart.
         return chartTrack
 
+file_path = "/home/user/music/"
+
 def yaMusic_file(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
@@ -90,8 +92,8 @@ def yaMusic_file(num_retries = 10):
             getTrack = yclient.rotor_station_tracks(station='user:onyourwave')
             getTrackInfo = getTrack["sequence"][random.randint(0,4)] #random track from onyourwave. (onyourwave send only 5 tracks, random it 1-5)
             getTrackId = getTrackInfo["track"]["id"]
-            musicFile = yclient.tracks_download_info(track_id=getTrackId)[0].download("/home/user/music/" + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3')
-            musicFilePath = "/home/user/music/" + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3'
+            musicFile = yclient.tracks_download_info(track_id=getTrackId)[0].download(file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3')
+            musicFilePath = file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3'
             print("Путь до файла с музякой: " + musicFilePath)
         except:
             if attempt_no < (num_retries - 1):
