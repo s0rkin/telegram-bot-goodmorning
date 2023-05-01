@@ -33,6 +33,9 @@
 <p>TELEGRAM_USER - юзер в телеграм, формат TELEGRAM_USER="user"</p>
 <p>TELEGRAM_USER - user in telegram, format TELEGRAM_USER="user"</p>
 </br>
+<p>YANDEX_TOKEN = хэш приложения в телеграм, гуглим как получить.</p>
+<p>YANDEX_TOKEN = hash app in telegram, google how to catch.</p>
+</br>
 <p>Функция main в send_message используем либо user,либо group. ну либо комбинации.</p>
 <p>The main function in send_message uses either user or group. well, or combinations.</p>
 </br>
