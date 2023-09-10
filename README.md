@@ -59,7 +59,8 @@ TELEGRAM_USER - if need, EXAMPLE -> TELEGRAM_USER="user"
 <p>
 HEADER_AUTHORIZATION - this is authorization for GPT! - see more in <code>gpt.py</code> (u need add url and header's). google it!
 </p>
-<p>then u need add - 
+<p>then u need add -</p>
+<p>
 WEATHER_API_KEY - key for openweathermap its free, google it.
 </p>
 <p>
