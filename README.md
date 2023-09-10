@@ -14,7 +14,7 @@
 <p>Installing libraries:</p>
 <code>pip3 install -r ./requirements.txt</code>
 </br>
-<p>CONFIG:
+<p>CONFIG:</p>
 <code>
   PATH_FOR_MUSIC="/home/user/" 
   TELEGRAM_API_ID=
@@ -41,20 +41,22 @@
 u need to add some base URL - 
 CAT_URL_404 - that ulr send default img from cat.py if error.
 GPT_URL - chatgpt url , google it!
-
+</p>
 <p>then u need add - 
 TELEGRAM_GROUP - EXAMPLE -> TELEGRAM_GROUP=-1234567890  // see more on main.py client send message!
 TELEGRAM_USER - if need, EXAMPLE -> TELEGRAM_USER="user"
 YANDEX_TOKEN - google it.
 HEADER_AUTHORIZATION - this is authorization for GPT! - see more in gpt.py (u need add url and header's). google it!
-
+</p>
 <p>then u need add - 
 WEATHER_API_KEY - key for openweathermap its free, google it.
-
-add this config's google how to catch. or use get_string_session.py
+</p>
+<p>
+add TELEGRAM config's google how to catch. or use get_string_session.py
 TELEGRAM_API_ID=
 TELEGRAM_API_
 TELEGRAM_STRING_SESSION=
+</p>
 
-ADD TO CRON, EXAMPLE:
+<p>ADD TO CRON, EXAMPLE:</p>
 <code>0 10 * * * /usr/bin/python3 /home/user/main.py >> /var/log/main_bot.log</code>
