@@ -14,28 +14,47 @@
 <p>Installing libraries:</p>
 <code>pip3 install -r ./requirements.txt</code>
 </br>
-</br>
-<p>TELEGRAM_API_HASH = hash app in telegram, google how to catch.</p>
-</br>
-<p>TELGRAM_API_ID = id app in telegram, google how to catch.</p>
-</br>
-<p>get_string_session.py - авторизация в телеге, получаем TELEGRAM_SESSION_STRING и засовываем в env файл.</p>
-<p>get_string_session.py - auth in telegram, get TELEGRAM_SESSION_STRING and add to env file.</p>
-</br>
-<p>CAT_API = key api https://thecatapi.com/</p>
-</br>
-<p>WEATHER_API_KEY - api key for openweathermap or yandex (comment in code bot.py).</p>
-</br>
-<p>TELEGRAM_GROUP - group in telegram, format TELEGRAM_GROUP=-1234567890</p>
-</br>
-<p>How to quickly find out the id of a group or user, go to the web version of telegram, the link will have an identifier of the form - /k/#-123456789, this is the id, it's important! add -100 to the beginning, for example, TELEGRAM_GROUP=-100123456789</p>
-</br>
-<p>TELEGRAM_USER - user in telegram, format TELEGRAM_USER="user"</p>
-</br>
-<p>YANDEX_TOKEN = hash yandex music, google how to catch.</p>
-</br>
-<p>The main function in send_message uses either user or group. well, or combinations.</p>
-</br>
-<p>next, run on the cron bot.py for example, like this with loging - </p>
-</br>
-  <code>0 10 * * * /usr/bin/python3 /home/user/bot.py >> /var/log/bot.log</code>
+CONFIG:
+<code>
+  PATH_FOR_MUSIC="/home/user/" 
+  TELEGRAM_API_ID=
+  TELEGRAM_API_
+  TELEGRAM_STRING_SESSION=
+  WEATHER_API_KEY=
+  CAT_URL="https://api.thecatapi.com/api/images/get"
+  CAT_URL_404=
+  CAT_API=
+  CALENDAR_URL="https://api.sm.su/v1/calendar/business/"
+  WEATHER_URL="https://api.openweathermap.org/data/2.5/weather"
+  VALUTE_URL="http://www.cbr.ru/scripts/XML_daily.asp"
+  GPT_URL=
+  USD_ID="R01235"
+  EURO_ID="R01239"
+  TELEGRAM_GROUP=
+  TELEGRAM_USER=
+  YANDEX_TOKEN=
+  HEADER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0  Safari/537.36"
+  HEADER_REQUEST="XMLHttpRequest"
+  HEADER_AUTHORIZATION=
+<code>
+<p>
+u need to add some base URL - 
+CAT_URL_404 - that ulr send default img from cat.py if error.
+GPT_URL - chatgpt url , google it!
+
+<p>then u need add - 
+TELEGRAM_GROUP - EXAMPLE -> TELEGRAM_GROUP=-1234567890  // see more on main.py client send message!
+TELEGRAM_USER - if need, EXAMPLE -> TELEGRAM_USER="user"
+YANDEX_TOKEN - google it.
+HEADER_AUTHORIZATION - this is authorization for GPT! - see more in gpt.py (u need add url and header's). google it!
+
+<p>then u need add - 
+WEATHER_API_KEY - key for openweathermap its free, google it.
+
+add this config's google how to catch. or use get_string_session.py
+TELEGRAM_API_ID=
+TELEGRAM_API_
+TELEGRAM_STRING_SESSION=
+
+ADD TO CRON, EXAMPLE:
+<code>0 10 * * * /usr/bin/python3 /home/user/main.py >> /var/log/main_bot.log</code>
