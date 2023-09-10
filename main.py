@@ -22,7 +22,7 @@ load_dotenv()
 
 #TODO: \n\n need on send message only! not for def's!!!
 #TODO: see yamusic.py for refactoring
-#TODO: need fix - int(os.getenv) - when group. Exception while sending the message - Cannot find any entity corresponding to "-1234567890"
+#TODO: need fix - os.getenv - when group. Exception while sending the message - Cannot find any entity corresponding to "-1234567890"
 #TODO: music?
 #TODO: mb new def need.
 
