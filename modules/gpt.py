@@ -64,7 +64,7 @@ gpt_text = get_text()
 if "Конечно!" in gpt_text:
     gpt_text = gpt_text.replace("Конечно!", "")
 if "\n\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n\n", "\n")
+    gpt_text = gpt_text.replace("\n\n\n", "\n\n")
 if "Факт дня" in gpt_text:
     gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
 if "Совет дня" in gpt_text:
