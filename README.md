@@ -14,7 +14,7 @@
 <p>Installing libraries:</p>
 <code>pip3 install -r ./requirements.txt</code>
 </br>
-CONFIG:
+<p>CONFIG:
 <code>
   PATH_FOR_MUSIC="/home/user/" 
   TELEGRAM_API_ID=
