@@ -57,13 +57,13 @@ TELEGRAM_GROUP - EXAMPLE -> TELEGRAM_GROUP=-1234567890  // see more on <code>mai
 TELEGRAM_USER - if need, EXAMPLE -> TELEGRAM_USER="user"
 </p>
 <p>
-YANDEX_TOKEN - google it.
-</p>
-<p>
 HEADER_AUTHORIZATION - this is authorization for GPT! - see more in <code>gpt.py</code> (u need add url and header's). google it!
 </p>
 <p>then u need add - 
 WEATHER_API_KEY - key for openweathermap its free, google it.
+</p>
+<p>
+YANDEX_TOKEN - google it. TOKEN for yandex music app.
 </p>
 <p>
 CAT_API_KEY - key for api.thecatapi.com its free, google it.
