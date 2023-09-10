@@ -32,7 +32,7 @@ param = {
 def get_day(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
-            r = requests.get(os.getenv("GETDAY_URL"), headers = header, params=param)
+            r = requests.get(os.getenv("CALENDAR_URL"), headers = header, params=param)
             t = json.loads(r.text)
         except:
             if attempt_no < (num_retries - 1):
