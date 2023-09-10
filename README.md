@@ -3,8 +3,7 @@
 ![Screenshot_2](https://user-images.githubusercontent.com/12657938/235433924-9e9af9e4-521d-4e42-bb51-96fc7ff224a4.png)
 
 <p>Current ver. 2.1 </p>
-<code>
-  *add GPT
+<code>*add GPT
   *refactoring
   *add mass config's
   *add modules
