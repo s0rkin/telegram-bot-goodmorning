@@ -43,7 +43,7 @@
 u need to add some base URL -
 </p>
 <p>
-CAT_URL_404 - that ulr send default img from <code>cat.py</code> if error.
+CAT_URL_404 - that url send default img from <code>cat.py</code> if error.
 </p>
 <p>
 GPT_URL - chatgpt url , google it! can be free! =)</text>
