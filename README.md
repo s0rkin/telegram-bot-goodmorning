@@ -2,19 +2,20 @@
 ![Screenshot_1](https://user-images.githubusercontent.com/12657938/235433999-d8163841-6a49-49e1-a67c-31f1a71cb5d5.png)
 ![Screenshot_2](https://user-images.githubusercontent.com/12657938/235433924-9e9af9e4-521d-4e42-bb51-96fc7ff224a4.png)
 
-<p>Current ver. 2.1 </p>
+<p>Current ver. 2.1
 <code>
-  *add GPT
-  *refactoring
-  *add mass config's
-  *add modules
-  *fix's
+*add GPT
+*refactoring
+*add mass config's
+*add modules
+*fix's
 </code>
-
-<p>Installing libraries:</p>
+</p>
+<p>Installing libraries:
 <code>pip3 install -r ./requirements.txt</code>
-</br>
-<p>CONFIG:</p>
+</p>
+<br>
+<p>CONFIG:
 <code>
   PATH_FOR_MUSIC="/home/user/" 
   TELEGRAM_API_ID=
@@ -36,27 +37,49 @@
   HEADER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0  Safari/537.36"
   HEADER_REQUEST="XMLHttpRequest"
   HEADER_AUTHORIZATION=
-<code>
+</code>
+</p>
 <p>
-u need to add some base URL - 
-CAT_URL_404 - that ulr send default img from cat.py if error.
-GPT_URL - chatgpt url , google it!
+u need to add some base URL -
+</p>
+<p>
+CAT_URL_404 - that ulr send default img from <code>cat.py</code> if error.
+</p>
+<p>
+GPT_URL - chatgpt url , google it! can be free! =)</text>
 </p>
 <p>then u need add - 
-TELEGRAM_GROUP - EXAMPLE -> TELEGRAM_GROUP=-1234567890  // see more on main.py client send message!
+</p>
+<p>
+TELEGRAM_GROUP - EXAMPLE -> TELEGRAM_GROUP=-1234567890  // see more on <code>main.py</code> client send message!
+</p>
+<p>
 TELEGRAM_USER - if need, EXAMPLE -> TELEGRAM_USER="user"
+</p>
+<p>
 YANDEX_TOKEN - google it.
-HEADER_AUTHORIZATION - this is authorization for GPT! - see more in gpt.py (u need add url and header's). google it!
+</p>
+<p>
+HEADER_AUTHORIZATION - this is authorization for GPT! - see more in <code>gpt.py</code> (u need add url and header's). google it!
 </p>
 <p>then u need add - 
 WEATHER_API_KEY - key for openweathermap its free, google it.
 </p>
 <p>
-add TELEGRAM config's google how to catch. or use get_string_session.py
+CAT_API_KEY - key for api.thecatapi.com its free, google it.
+</p>
+<p>
+add TELEGRAM config's google how to catch. or use <code>get_string_session.py</code>
+</p>
+<p>
 TELEGRAM_API_ID=
-TELEGRAM_API_
+</p>
+<p>
+TELEGRAM_API_HASH=
+</p>
+<p>
 TELEGRAM_STRING_SESSION=
 </p>
-
-<p>ADD TO CRON, EXAMPLE:</p>
+<p>ADD TO CRON, EXAMPLE:
 <code>0 10 * * * /usr/bin/python3 /home/user/main.py >> /var/log/main_bot.log</code>
+</p>
