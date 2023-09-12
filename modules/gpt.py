@@ -71,5 +71,11 @@ if "Совет дня" in gpt_text:
     gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
 if "Цитата дня" in gpt_text:
     gpt_text = gpt_text.replace("Цитата дня", "<b>Цитата дня")
+if "Короткий совет дня" in gpt_text:
+    gpt_text = gpt_text.replace("Короткий совет дня", "<b>Совет дня")
+if "Короткий факт дня" in gpt_text:
+    gpt_text = gpt_text.replace("Короткий факт дня", "<b>Факт дня")
+if "Короткая цитата дня" in gpt_text:
+    gpt_text = gpt_text.replace("Короткая цитата дня", "<b>Цитата дня")
 if ":" in gpt_text:
     gpt_text = gpt_text.replace(":", ":</b>")
