@@ -20,6 +20,7 @@ load_dotenv()
 # parse euro + dollar from cbr xml format.
 usd_id = os.getenv("USD_ID")
 euro_id = os.getenv("EURO_ID")
+cny_id = os.getenv("CNY_ID")
 
 def get_valute(num_retries = 10):
     for attempt_no in range(num_retries):
@@ -36,6 +37,8 @@ def get_valute(num_retries = 10):
                     get_usd = "USD <b>" + (x.find("Value").text[:-2]) + "</b> руб"
                 if id_v == euro_id:
                     get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
+                if id_v == cny_id:
+                    get_cny = "\nCNY <b>" + (x.find("Value").text[:-2]) + "</b> руб"
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
@@ -43,5 +46,5 @@ def get_valute(num_retries = 10):
                 web_data = get_valute(num_retries - 1)
             else:
                 print("API (get_valute) ERROR! " + str(num_retries) + " retries expired!")
-                return "USD: error 0 руб." + "\nUERO: error 0 руб."
-        return get_usd + get_eur
+                return "USD: error 0 руб." + "\nUERO: error 0 руб." + "\nCNY: error 0 руб." 
+        return get_usd + get_eur + get_cny
