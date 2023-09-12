@@ -14,6 +14,9 @@
 <p>Installing libraries:
 <code>pip3 install -r ./requirements.txt</code>
 </p>
+<p>
+FOR YAMUSIC need python3.7!!! its very important!
+</p>
 <br>
 <p>CONFIG in <code>.env</code>:
 <code>
