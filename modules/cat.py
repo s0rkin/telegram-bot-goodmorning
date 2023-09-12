@@ -30,7 +30,7 @@ param = {
 def get_cat(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
-            r = requests.get(os.getenv("CAT_URL"), headers = header, params=param)
+            r = requests.get(os.getenv("CAT_URL"), headers = header, params = param)
             url = r.url
         except:
             if attempt_no < (num_retries - 1):
