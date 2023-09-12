@@ -38,6 +38,6 @@ def get_cat(num_retries = 10):
                 print("CURRENT RETRY (get_cat): " + str(num_retries - 1))
                 r = get_cat(num_retries - 1)
             else:
-                print("API (get_cat) ERROR! 10 retries expired!")
+                print("API (get_cat) ERROR! " + str(num_retries) + " retries expired!")
                 return os.getenv("CAT_URL_404")
         return url
