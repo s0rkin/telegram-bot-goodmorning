@@ -19,7 +19,6 @@ load_dotenv()
 
 #function get_text from chatgpt
 now = datetime.now()
-#check_day = now.strftime("%d день, %m месяц, %Y год.")
 check_day = now.strftime("%Y-%m-%d")
 
 header = {
