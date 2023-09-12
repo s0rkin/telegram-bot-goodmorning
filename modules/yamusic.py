@@ -70,7 +70,7 @@ def yaMusic_file(num_retries = 10):
             #musicFile download track from yaMusic to PATH_FOR_MUSIC
             musicFile = yclient.tracks_download_info(track_id=getTrackId)[0].download(file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3')
             
-            #musicFilePath for clientsend telegram, send mp3 file.
+            #musicFilePath for client.send_message telegram, send mp3 file.
             musicFilePath = file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3'
             print("Путь до файла с музякой: " + musicFilePath)
         except:
