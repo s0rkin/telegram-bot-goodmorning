@@ -30,8 +30,8 @@ header = {
 post_info = {
   "messages": [
     {
-      "role": "user",
-      "content": "Напиши короткий совет дня, короткий факт дня на " + check_day + " дату, короткую цитату дня "
+        "role": "user",
+        "content": "Сегодня " + check_day + " день." + " Напиши совет дня, факт дня, цитату дня. Без пожеланий и ответов."
     }
   ],
   "model": "gpt-4",
@@ -63,19 +63,17 @@ gpt_text = get_text()
 #Convert text for telegram
 if "Конечно!" in gpt_text:
     gpt_text = gpt_text.replace("Конечно!", "")
+if "Вот ваш запрос:" in gpt_text:
+    gpt_text = gpt_text.replace("Вот ваш запрос:", "")
 if "\n\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n\n", "\n\n")
+    gpt_text = gpt_text.replace("\n\n\n", "\n")
 if "Факт дня" in gpt_text:
     gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
 if "Совет дня" in gpt_text:
     gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
 if "Цитата дня" in gpt_text:
     gpt_text = gpt_text.replace("Цитата дня", "<b>Цитата дня")
-if "Короткий совет дня" in gpt_text:
-    gpt_text = gpt_text.replace("Короткий совет дня", "<b>Совет дня")
-if "Короткий факт дня" in gpt_text:
-    gpt_text = gpt_text.replace("Короткий факт дня", "<b>Факт дня")
-if "Короткая цитата дня" in gpt_text:
-    gpt_text = gpt_text.replace("Короткая цитата дня", "<b>Цитата дня")
 if ":" in gpt_text:
     gpt_text = gpt_text.replace(":", ":</b>")
+if "</b>\n" in gpt_text:
+    gpt_text = gpt_text.replace("</b>\n", "</b>")
