@@ -19,7 +19,7 @@ load_dotenv()
 
 #function get_text from chatgpt
 now = datetime.now()
-check_day = now.strftime("%d.%m.%Y")
+check_day = now.strftime("%d день, %m месяц, %Y год")
 
 header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
