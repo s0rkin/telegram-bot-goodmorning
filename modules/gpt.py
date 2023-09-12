@@ -20,6 +20,7 @@ load_dotenv()
 #function get_text from chatgpt
 now = datetime.now()
 check_day = now.strftime("%d день, %m месяц, %Y год.")
+print(check_day)
 
 header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
@@ -31,7 +32,7 @@ post_info = {
   "messages": [
     {
         "role": "user",
-        "content": "Сегодня " + check_day + " дата." + "\n напиши коротко на эту дату - совет дня, факт дня, цитату дня." + "\n Без ответа на запрос, без самого запроса, без пожеланий"
+        "content": "Сегодня " + check_day + "\n напиши коротко на эту дату - совет дня, факт дня, цитату дня." + "\n Без ответа на запрос, без самого запроса, без пожеланий"
     }
   ],
   "model": "gpt-4",
