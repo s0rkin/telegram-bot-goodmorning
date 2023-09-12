@@ -45,7 +45,7 @@ post_info = {
 def get_text(num_retries = 15):
     for attempt_no in range(num_retries):
         try:
-            r = requests.post(os.getenv("GPT_URL"), headers=header, json=post_info)
+            r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
             t = json.loads(r.text)
             j = t["choices"][0]["message"]["content"]
         except:
