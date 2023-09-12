@@ -8,43 +8,38 @@
 # ---------------------------------------------------------------------------
 
 import os
+import requests
 import time
-import urllib.request as url
-import xml.etree.ElementTree as et
+import json
 
 #load file .env config
 from dotenv import load_dotenv
 load_dotenv()
 
-#USD + EURO
-# parse euro + dollar from cbr xml format.
-usd_id = os.getenv("USD_ID")
-euro_id = os.getenv("EURO_ID")
-cny_id = os.getenv("CNY_ID")
+header = {
+    "User-Agent": os.getenv("HEADER_AGENT"),
+    "X-Requested-With": os.getenv("HEADER_REQUEST")
+    }
 
-def get_valute(num_retries = 10):
+param = {
+    "id": 524901,
+    "type": "like", 
+    "units": "metric", 
+    "lang": "ru", 
+    "APPID": os.getenv("WEATHER_API_KEY")
+    }
+
+def get_weather(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
-            web_data = url.urlopen(os.getenv("VALUTE_URL"))
-            str_data = web_data.read()
-            xml_data = et.fromstring(str_data)
-            quoetes_list = xml_data.findall("Valute")
-
-            #get USD and EUR from xml
-            for x in quoetes_list:
-                id_v = x.get("ID")
-                if id_v == usd_id:
-                    get_usd = "USD <b>" + (x.find("Value").text[:-2]) + "</b> руб"
-                if id_v == euro_id:
-                    get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
-                if id_v == cny_id:
-                    get_cny = "\nCNY <b>" + (x.find("Value").text[:-2]) + "</b> руб"
+            r = requests.get(os.getenv("WEATHER_URL"), headers = header, params = param)
+            t = json.loads(r.text)
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
-                print("CURRENT RETRY (get_valute): " + str(num_retries - 1))
-                web_data = get_valute(num_retries - 1)
+                print("CURRENT RETRY (get_weather): " + str(num_retries - 1))
+                r = get_weather(num_retries - 1)
             else:
-                print("API (get_valute) ERROR! " + str(num_retries) + " retries expired!")
-                return "USD: error 0 руб." + "\nUERO: error 0 руб." + "\nCNY: error 0 руб." 
-        return get_usd + get_eur + get_cny
+                print("API (get_weather) ERROR! 10 retries expired!")
+                return "<b>Погода в Москве:</b> не удалось получить, API ERROR! " + str(num_retries) + " retry expired!"
+        return "<b>Погода в Москве:</b> " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
