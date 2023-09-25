@@ -19,6 +19,7 @@ load_dotenv()
 
 #function get_text from chatgpt
 now = datetime.now()
+#check_day = now.strftime("%d день, %m месяц, %Y год.")
 check_day = now.strftime("%Y-%m-%d")
 
 header = {
@@ -30,14 +31,14 @@ header = {
 post_info = {
   "messages": [
     {
-        "role": "user",
+        "role": "user", #role's (system, assistant, user)
         "content": "Сегодня " + check_day + "\n напиши коротко на эту дату - совет дня, факт дня, цитату дня." + "\n Без ответа на запрос, без самого запроса, без пожеланий"
     }
   ],
-  "model": "gpt-4",
-  "temperature": 1,
+  "model": "gpt-3.5-turbo", #gpt-4
+  "temperature": 4,
   "presence_penalty": 0,
-  "top_p": 1,
+  "top_p": 0,
   "frequency_penalty": 0,
   "stream": False
 }
@@ -48,6 +49,7 @@ def get_text(num_retries = 15):
             r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
             t = json.loads(r.text)
             j = t["choices"][0]["message"]["content"]
+            return j
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(60) #wait 30sec for api response if have error. DONT SPAM!
@@ -56,7 +58,7 @@ def get_text(num_retries = 15):
             else:
                 print("API (get_text) ERROR! " + str(num_retries) + "retries expired!")
                 return "ChatGPT error! nothing will be send -_____-" 
-        return j
+
 
 gpt_text = get_text()
 
@@ -65,8 +67,14 @@ if "Конечно!" in gpt_text:
     gpt_text = gpt_text.replace("Конечно!", "")
 if "Вот ваш запрос:" in gpt_text:
     gpt_text = gpt_text.replace("Вот ваш запрос:", "")
+if "Конечно, вот что у меня есть:" in gpt_text:
+    gpt_text = gpt_text.replace("Конечно, вот что у меня есть:", "")
+if "Конечно, вот:" in gpt_text:
+    gpt_text = gpt_text.replace("Конечно, вот:", "")
+if "Конечно, вот ваш запрос:" in gpt_text:
+    gpt_text = gpt_text.replace("Конечно, вот ваш запрос:", "")
 if "\n\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n\n", "\n")
+    gpt_text = gpt_text.replace("\n\n\n", "")
 if "Факт дня" in gpt_text:
     gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
 if "Совет дня" in gpt_text:
