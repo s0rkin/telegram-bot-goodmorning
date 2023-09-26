@@ -32,7 +32,7 @@ post_info = {
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня " + check_day + "\n напиши коротко на сегодня, совет дня, факт дня, цитату дня."
+        "content": "Сегодня дата  " + check_day + ". Напиши коротко на эту дату - совет дня, факт дня, цитату дня. Без пожеланий."
     }
   ],
   "model": "gpt-4", #gpt-3.5-turbo
