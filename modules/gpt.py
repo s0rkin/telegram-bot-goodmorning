@@ -32,7 +32,7 @@ post_info = {
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня " + check_day + "\n напиши коротко на эту дату - совет дня, факт дня, цитату дня."
+        "content": "Сегодня " + check_day + "\n напиши коротко на сегодня, совет дня, факт дня, цитату дня."
     }
   ],
   "model": "gpt-4", #gpt-3.5-turbo
@@ -63,32 +63,22 @@ def get_text(num_retries = 15):
 gpt_text = get_text()
 
 #Convert text for telegram
-if "Конечно!" in gpt_text:
-    gpt_text = gpt_text.replace("Конечно!", "")
-if "Вот ваш запрос:" in gpt_text:
-    gpt_text = gpt_text.replace("Вот ваш запрос:", "")
-if "Конечно, вот что у меня есть:" in gpt_text:
-    gpt_text = gpt_text.replace("Конечно, вот что у меня есть:", "")
-if "Конечно, вот:" in gpt_text:
-    gpt_text = gpt_text.replace("Конечно, вот:", "")
-if "Конечно, вот ваш запрос:" in gpt_text:
-    gpt_text = gpt_text.replace("Конечно, вот ваш запрос:", "")
-if "Конечно, вот ваше обновление на сегодня:" in gpt_text:
-    gpt_text = gpt_text.replace("Конечно, вот ваше обновление на сегодня:", "")
+if "Совет дня" in gpt_text:
+    gpt_text = gpt_text[gpt_text.rfind("Совет дня"):] #remove everything before "Совет дня"
 if "\n\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n\n", "")
 if "\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n", "\n")
+#if "- Совет" in gpt_text:
+#    gpt_text = gpt_text.replace("- Совет", "Совет")
 if "- Факт" in gpt_text:
     gpt_text = gpt_text.replace("- Факт", "Факт")
-if "- Совет" in gpt_text:
-    gpt_text = gpt_text.replace("- Совет", "Совет")
 if "- Цитата" in gpt_text:
     gpt_text = gpt_text.replace("- Цитата", "Цитата")
-if "Факт дня" in gpt_text:
-    gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
 if "Совет дня" in gpt_text:
     gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
+if "Факт дня" in gpt_text:
+    gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
 if "Цитата дня" in gpt_text:
     gpt_text = gpt_text.replace("Цитата дня", "<b>Цитата дня")
 if ":" in gpt_text:
