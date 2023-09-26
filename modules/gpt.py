@@ -32,13 +32,13 @@ post_info = {
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня " + check_day + "\n напиши коротко на эту дату - совет дня, факт дня, цитату дня." + "\n Без ответа на запрос, без самого запроса, без пожеланий"
+        "content": "Сегодня " + check_day + "\n напиши коротко на эту дату - совет дня, факт дня, цитату дня."
     }
   ],
-  "model": "gpt-3.5-turbo", #gpt-4
-  "temperature": 4,
+  "model": "gpt-4", #gpt-3.5-turbo
+  "temperature": 0.7, #chaptgpt recomend 0.7-1.0
   "presence_penalty": 0,
-  "top_p": 0,
+  "top_p": 0.7, #chaptgpt recomend 0.7-1.0
   "frequency_penalty": 0,
   "stream": False
 }
@@ -73,8 +73,18 @@ if "Конечно, вот:" in gpt_text:
     gpt_text = gpt_text.replace("Конечно, вот:", "")
 if "Конечно, вот ваш запрос:" in gpt_text:
     gpt_text = gpt_text.replace("Конечно, вот ваш запрос:", "")
+if "Конечно, вот ваше обновление на сегодня:" in gpt_text:
+    gpt_text = gpt_text.replace("Конечно, вот ваше обновление на сегодня:", "")
 if "\n\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n\n", "")
+if "\n\n" in gpt_text:
+    gpt_text = gpt_text.replace("\n\n", "\n")
+if "- Факт" in gpt_text:
+    gpt_text = gpt_text.replace("- Факт", "Факт")
+if "- Совет" in gpt_text:
+    gpt_text = gpt_text.replace("- Совет", "Совет")
+if "- Цитата" in gpt_text:
+    gpt_text = gpt_text.replace("- Цитата", "Цитата")
 if "Факт дня" in gpt_text:
     gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
 if "Совет дня" in gpt_text:
