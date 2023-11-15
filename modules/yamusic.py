@@ -47,6 +47,7 @@ def yaMusic_chart(num_retries = 10):
                 track_text = f'{chart.position}. {track_text}'
                 text.append(track_text)
             chartTrack = ('\n'.join(text))
+            return chartTrack
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
@@ -54,8 +55,8 @@ def yaMusic_chart(num_retries = 10):
                 yclient = yaMusic_chart(num_retries - 1)
             else:
                 print("Yandex API error: unavailable chart! " + str(num_retries) + " retries expired!")
-                pass
-        return chartTrack
+                break
+            return "Yandex API error: unavailable chart!"
 
 def yaMusic_file(num_retries = 10):
     for attempt_no in range(num_retries):
@@ -67,19 +68,26 @@ def yaMusic_file(num_retries = 10):
             getTrackInfo = getTrack["sequence"][random.randint(0,4)] #random track from onyourwave. (onyourwave send only 5 tracks, random it 1-5)
             getTrackId = getTrackInfo["track"]["id"]
 
+            #SETING'S for onyourwave yamusic! 
+            #available setting's for mood_energy: fun, active, calm, sad, all.
+            #available setting's for diversity: favorite, popular, discover, default.
+            #available setting's for language: not-russian, russian, any.
+            setStation = yclient.rotor_station_settings2(station="user:onyourwave", mood_energy="active", diversity="default", language="not-russian")
+            
             #musicFile download track from yaMusic to PATH_FOR_MUSIC
             musicFile = yclient.tracks_download_info(track_id=getTrackId)[0].download(file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3')
             
             #musicFilePath for client.send_message telegram, send mp3 file.
             musicFilePath = file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + '.mp3'
             print("Путь до файла с музякой: " + musicFilePath)
+            return musicFilePath
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
                 print("CURRENT RETRY (yaMusic_file): " + str(num_retries - 1))
                 yclient = yaMusic_file(num_retries - 1)
             else:
-                print("API (yaMusic_file) ERROR! " + str(num_retries) + " retries expired!")
-                pass
+                print("API (yaMusic_file) ERROR! 10 retries expired!")
+                break
+            return file_path + "music.mp3" #need add mp3 file for except
                 #TODO: need return random mp3 file from /home/user + text if api error or something got error.
-        return musicFilePath
