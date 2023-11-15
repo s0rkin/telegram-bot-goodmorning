@@ -40,7 +40,7 @@ def get_day(num_retries = 10):
                 print("CURRENT RETRY (get_day): " + str(num_retries - 1))
                 r = get_day(num_retries - 1)
             else:
-                print("API (get_day) ERROR! " + str(num_retries) + " retries expired!")
+                print("API (get_day) ERROR! 10 retries expired!")
                 break
             return "Доброе утро!☝ Сегодня ХЗ какой день. get_day API ERROR! 10 retries expired!"
         #return full string for telegram "text" + get_day()
