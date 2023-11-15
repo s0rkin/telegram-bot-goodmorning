@@ -32,6 +32,7 @@ def get_cat(num_retries = 10):
         try:
             r = requests.get(os.getenv("CAT_URL"), headers = header, params = param)
             url = r.url
+            return url
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
@@ -41,4 +42,3 @@ def get_cat(num_retries = 10):
                 print("API (get_cat) ERROR! 10 retries expired!")
                 break
             return os.getenv("CAT_URL_404")
-        return url
