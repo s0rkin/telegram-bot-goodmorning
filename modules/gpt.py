@@ -52,12 +52,13 @@ def get_text(num_retries = 15):
             return j
         except:
             if attempt_no < (num_retries - 1):
-                time.sleep(60) #wait 30sec for api response if have error. DONT SPAM!
+                time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
                 print("CURRENT RETRY (get_text): " + str(num_retries - 1))
                 r = get_text(num_retries - 1)
             else:
-                print("API (get_text) ERROR! " + str(num_retries) + "retries expired!")
-                return "ChatGPT error! nothing will be send -_____-" 
+                print("API (get_text) ERROR! 15 retries expired!")
+                break
+            return "ChatGPT error! nothing will be send -__-" 
 
 
 gpt_text = get_text()
