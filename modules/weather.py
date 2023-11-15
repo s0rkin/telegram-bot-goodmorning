@@ -34,6 +34,7 @@ def get_weather(num_retries = 10):
         try:
             r = requests.get(os.getenv("WEATHER_URL"), headers = header, params = param)
             t = json.loads(r.text)
+            return "<b>Погода в Москве:</b> " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
@@ -41,5 +42,5 @@ def get_weather(num_retries = 10):
                 r = get_weather(num_retries - 1)
             else:
                 print("API (get_weather) ERROR! 10 retries expired!")
-                return "<b>Погода в Москве:</b> не удалось получить, API ERROR! " + str(num_retries) + " retry expired!"
-        return "<b>Погода в Москве:</b> " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
+                break
+            return "<b>Погода в Москве:</b> не удалось получить, API ERROR!"
