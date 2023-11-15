@@ -42,7 +42,7 @@ def get_day(num_retries = 10):
             else:
                 print("API (get_day) ERROR! " + str(num_retries) + " retries expired!")
                 break
-            return "Доброе утро!☝ Сегодня ХЗ какой день. get_day API ERROR! " + str(num_retries) + " retries expired!"
+            return "Доброе утро!☝ Сегодня ХЗ какой день. get_day API ERROR! 10 retries expired!"
         #return full string for telegram "text" + get_day()
         if t["work"] == "1":
             return "Доброе утро!☝ Сегодня " + t["type"] + "."
