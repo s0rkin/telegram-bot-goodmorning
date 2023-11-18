@@ -90,5 +90,5 @@ TELEGRAM_API_HASH=
 TELEGRAM_STRING_SESSION=
 </p>
 <p>ADD TO CRON, EXAMPLE:
-<code>0 10 * * * /usr/bin/python3 /home/user/main.py >> /var/log/main_bot.log</code>
+<code>0 10 * * * /usr/bin/python3.7 /home/user/main.py >> /var/log/main_bot.log</code>
 </p>
