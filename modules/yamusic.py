@@ -89,5 +89,5 @@ def yaMusic_file(num_retries = 10):
             else:
                 print("API (yaMusic_file) ERROR! 10 retries expired!")
                 break
-            return file_path + "music.mp3" #need add mp3 file for except
+            return file_path + os.getenv("MUSIC_EXCEPT")
                 #TODO: need return random mp3 file from /home/user + text if api error or something got error.
