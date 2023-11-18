@@ -21,6 +21,7 @@ FOR YAMUSIC need python3.7!!! its very important!
 <p>CONFIG in <code>.env</code>:
 <code>
   PATH_FOR_MUSIC="/home/user/" 
+  MUSIC_EXCEPT=
   TELEGRAM_API_ID=
   TELEGRAM_API_
   TELEGRAM_STRING_SESSION=
@@ -45,6 +46,9 @@ FOR YAMUSIC need python3.7!!! its very important!
 </p>
 <p>
 u need to add some base URL -
+</p>
+<p>
+MUSIC_EXCEPT - need add something music file name if yamusic.py got except.
 </p>
 <p>
 CAT_URL_404 - that url send default img from <code>cat.py</code> if error.
