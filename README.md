@@ -1,6 +1,7 @@
 # BOT "Good morning" for telegram, on your profile!
-![Screenshot_1](https://user-images.githubusercontent.com/12657938/235433999-d8163841-6a49-49e1-a67c-31f1a71cb5d5.png)
-![Screenshot_2](https://user-images.githubusercontent.com/12657938/235433924-9e9af9e4-521d-4e42-bb51-96fc7ff224a4.png)
+![image](https://github.com/s0rkin/telegram-bot-goodmorning/assets/12657938/23614b81-c836-4877-b38f-b19ff99c7e0a)
+![image](https://github.com/s0rkin/telegram-bot-goodmorning/assets/12657938/1109df36-0aef-4882-b157-9c290a7d9d23)
+
 
 <p>Current ver. 2.1
 <code>
