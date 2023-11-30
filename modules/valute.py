@@ -23,6 +23,7 @@ euro_id = os.getenv("EURO_ID")
 cny_id = os.getenv("CNY_ID")
 
 def get_valute(num_retries = 10):
+    error_return = 0
     for attempt_no in range(num_retries):
         try:
             web_data = url.urlopen(os.getenv("VALUTE_URL"))
@@ -39,6 +40,7 @@ def get_valute(num_retries = 10):
                     get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
                 if id_v == cny_id:
                     get_cny = "\nCNY <b>" + (x.find("Value").text[:-2]) + "</b> руб"
+                
             return get_usd + get_eur + get_cny
         except:
             if attempt_no < (num_retries - 1):
@@ -46,6 +48,8 @@ def get_valute(num_retries = 10):
                 print("CURRENT RETRY (get_valute): " + str(num_retries - 1))
                 web_data = get_valute(num_retries - 1)
             else:
-                print("API (get_valute) ERROR! 10 retries expired!")
+                print("API (get_valute) ERROR! " + str(num_retries) + " retries expired!")
+                error_return = 1
                 break
-            return "USD: error 0 руб." + "\nUERO: error 0 руб." + "\nCNY: error 0 руб." 
+    if error_return == 1:
+        return "USD: error 0 руб." + "\nUERO: error 0 руб." + "\nCNY: error 0 руб."
