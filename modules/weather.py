@@ -9,83 +9,42 @@
 
 import os
 import requests
-import json
 import time
-from datetime import datetime
+import json
 
 #load file .env config
 from dotenv import load_dotenv
 load_dotenv()
 
-#function get_text from chatgpt
-now = datetime.now()
-#check_day = now.strftime("%d день, %m месяц, %Y год.")
-check_day = now.strftime("%Y-%m-%d")
-
 header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
-    "X-Requested-With": os.getenv("HEADER_REQUEST"), 
-    "Authorization": os.getenv("HEADER_AUTHORIZATION")
+    "X-Requested-With": os.getenv("HEADER_REQUEST")
     }
 
-post_info = {
-  "messages": [
-    {
-        "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня дата  " + check_day + ". Напиши коротко на эту дату - совет дня, факт дня, цитату дня. Без пожеланий."
+param = {
+    "id": 524901,
+    "type": "like", 
+    "units": "metric", 
+    "lang": "ru", 
+    "APPID": os.getenv("WEATHER_API_KEY")
     }
-  ],
-  "model": "gpt-3.5-turbo", #gpt-4
-  "temperature": 0.8, #chaptgpt recomend 0.7-1.0
-  "presence_penalty": 0,
-  "top_p": 0.2, #chaptgpt recomend 0.7-1.0
-  "frequency_penalty": 0,
-  "stream": False
-}
 
-def get_text(num_retries = 15):
+def get_weather(num_retries = 10):
     error_return = 0
     for attempt_no in range(num_retries):
         try:
-            r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
+            r = requests.get(os.getenv("WEATHER_URL"), headers = header, params = param)
             t = json.loads(r.text)
-            j = t["choices"][0]["message"]["content"]
-            return j
+
+            return "<b>Погода в Москве:</b> " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
         except:
             if attempt_no < (num_retries - 1):
-                time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
-                print("CURRENT RETRY (get_text): " + str(num_retries - 1) + "\n" + str(r.status_code) + "\n" + r.text)
-                r = get_text(num_retries - 1)
+                time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
+                print("CURRENT RETRY (get_weather): " + str(num_retries - 1))
+                r = get_weather(num_retries - 1)
             else:
-                #print for debugging
-                print("API (get_text) ERROR! 15 retries expired!" + "\n Сервер вернул статус: " + str(r.status_code) + "\n" + r.text)
+                print("API (get_weather) ERROR! 10 retries expired!")
                 error_return = 1
                 break
     if error_return == 1:
-        return "ChatGPT error! nothing will be send -_-"
-
-gpt_text = get_text()
-
-#Convert text for telegram
-if "Совет дня" in gpt_text:
-    gpt_text = gpt_text[gpt_text.rfind("Совет дня"):] #remove everything before "Совет дня"
-if "\n\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n\n", "")
-if "\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n", "\n")
-if "- Факт" in gpt_text:
-    gpt_text = gpt_text.replace("- Факт", "Факт")
-if "- Цитата" in gpt_text:
-    gpt_text = gpt_text.replace("- Цитата", "Цитата")
-if "Совет дня" in gpt_text:
-    gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
-if "Факт дня" in gpt_text:
-    gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
-if "Цитата дня" in gpt_text:
-    gpt_text = gpt_text.replace("Цитата дня", "<b>Цитата дня")
-if "дня:" in gpt_text:
-    gpt_text = gpt_text.replace("дня:", "дня:</b>")
-if "*" in gpt_text:
-    gpt_text = gpt_text.replace("*", "")
-if "</b>\n" in gpt_text:
-    gpt_text = gpt_text.replace("</b>\n", "</b>")
+        return "<b>Погода в Москве:</b> не удалось получить, API ERROR! " + str(num_retries) + " retry expired!"
