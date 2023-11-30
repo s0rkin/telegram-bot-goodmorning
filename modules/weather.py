@@ -8,48 +8,84 @@
 # ---------------------------------------------------------------------------
 
 import os
+import requests
+import json
 import time
-import urllib.request as url
-import xml.etree.ElementTree as et
+from datetime import datetime
 
 #load file .env config
 from dotenv import load_dotenv
 load_dotenv()
 
-#USD + EURO
-# parse euro + dollar from cbr xml format.
-usd_id = os.getenv("USD_ID")
-euro_id = os.getenv("EURO_ID")
-cny_id = os.getenv("CNY_ID")
+#function get_text from chatgpt
+now = datetime.now()
+#check_day = now.strftime("%d день, %m месяц, %Y год.")
+check_day = now.strftime("%Y-%m-%d")
 
-def get_valute(num_retries = 10):
+header = {
+    "User-Agent": os.getenv("HEADER_AGENT"),
+    "X-Requested-With": os.getenv("HEADER_REQUEST"), 
+    "Authorization": os.getenv("HEADER_AUTHORIZATION")
+    }
+
+post_info = {
+  "messages": [
+    {
+        "role": "user", #role's (system, assistant, user)
+        "content": "Сегодня дата  " + check_day + ". Напиши коротко на эту дату - совет дня, факт дня, цитату дня. Без пожеланий."
+    }
+  ],
+  "model": "gpt-3.5-turbo", #gpt-4
+  "temperature": 0.8, #chaptgpt recomend 0.7-1.0
+  "presence_penalty": 0,
+  "top_p": 0.2, #chaptgpt recomend 0.7-1.0
+  "frequency_penalty": 0,
+  "stream": False
+}
+
+def get_text(num_retries = 15):
     error_return = 0
     for attempt_no in range(num_retries):
         try:
-            web_data = url.urlopen(os.getenv("VALUTE_URL"))
-            str_data = web_data.read()
-            xml_data = et.fromstring(str_data)
-            quoetes_list = xml_data.findall("Valute")
-
-            #get USD and EUR from xml
-            for x in quoetes_list:
-                id_v = x.get("ID")
-                if id_v == usd_id:
-                    get_usd = "USD <b>" + (x.find("Value").text[:-2]) + "</b> руб"
-                if id_v == euro_id:
-                    get_eur = "\nEURO <b>" + (x.find("Value").text[:-2]) + "</b> руб"
-                if id_v == cny_id:
-                    get_cny = "\nCNY <b>" + (x.find("Value").text[:-2]) + "</b> руб"
-                
-            return get_usd + get_eur + get_cny
+            r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
+            t = json.loads(r.text)
+            j = t["choices"][0]["message"]["content"]
+            return j
         except:
             if attempt_no < (num_retries - 1):
-                time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
-                print("CURRENT RETRY (get_valute): " + str(num_retries - 1))
-                web_data = get_valute(num_retries - 1)
+                time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
+                print("CURRENT RETRY (get_text): " + str(num_retries - 1) + "\n" + str(r.status_code) + "\n" + r.text)
+                r = get_text(num_retries - 1)
             else:
-                print("API (get_valute) ERROR! " + str(num_retries) + " retries expired!")
+                #print for debugging
+                print("API (get_text) ERROR! 15 retries expired!" + "\n Сервер вернул статус: " + str(r.status_code) + "\n" + r.text)
                 error_return = 1
                 break
     if error_return == 1:
-        return "USD: error 0 руб." + "\nUERO: error 0 руб." + "\nCNY: error 0 руб."
+        return "ChatGPT error! nothing will be send -_-"
+
+gpt_text = get_text()
+
+#Convert text for telegram
+if "Совет дня" in gpt_text:
+    gpt_text = gpt_text[gpt_text.rfind("Совет дня"):] #remove everything before "Совет дня"
+if "\n\n\n" in gpt_text:
+    gpt_text = gpt_text.replace("\n\n\n", "")
+if "\n\n" in gpt_text:
+    gpt_text = gpt_text.replace("\n\n", "\n")
+if "- Факт" in gpt_text:
+    gpt_text = gpt_text.replace("- Факт", "Факт")
+if "- Цитата" in gpt_text:
+    gpt_text = gpt_text.replace("- Цитата", "Цитата")
+if "Совет дня" in gpt_text:
+    gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
+if "Факт дня" in gpt_text:
+    gpt_text = gpt_text.replace("Факт дня", "<b>Факт дня")
+if "Цитата дня" in gpt_text:
+    gpt_text = gpt_text.replace("Цитата дня", "<b>Цитата дня")
+if "дня:" in gpt_text:
+    gpt_text = gpt_text.replace("дня:", "дня:</b>")
+if "*" in gpt_text:
+    gpt_text = gpt_text.replace("*", "")
+if "</b>\n" in gpt_text:
+    gpt_text = gpt_text.replace("</b>\n", "</b>")
