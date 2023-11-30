@@ -47,4 +47,4 @@ def get_weather(num_retries = 10):
                 error_return = 1
                 break
     if error_return == 1:
-        return "<b>Погода в Москве:</b> не удалось получить, API ERROR! " + str(num_retries) + " retry expired!"
+        return "<b>Погода в Москве:</b> не удалось получить, API ERROR!"
