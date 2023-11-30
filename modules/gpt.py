@@ -35,15 +35,16 @@ post_info = {
         "content": "Сегодня дата  " + check_day + ". Напиши коротко на эту дату - совет дня, факт дня, цитату дня. Без пожеланий."
     }
   ],
-  "model": "gpt-4", #gpt-3.5-turbo
-  "temperature": 0.7, #chaptgpt recomend 0.7-1.0
+  "model": "gpt-3.5-turbo", #gpt-4
+  "temperature": 0.8, #chaptgpt recomend 0.7-1.0
   "presence_penalty": 0,
-  "top_p": 0.7, #chaptgpt recomend 0.7-1.0
+  "top_p": 0.2, #chaptgpt recomend 0.7-1.0
   "frequency_penalty": 0,
   "stream": False
 }
 
 def get_text(num_retries = 15):
+    error_return = 0
     for attempt_no in range(num_retries):
         try:
             r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
@@ -53,13 +54,15 @@ def get_text(num_retries = 15):
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
-                print("CURRENT RETRY (get_text): " + str(num_retries - 1))
+                print("CURRENT RETRY (get_text): " + str(num_retries - 1) + "\n" + str(r.status_code) + "\n" + r.text)
                 r = get_text(num_retries - 1)
             else:
-                print("API (get_text) ERROR! 15 retries expired!")
+                #print for debugging
+                print("API (get_text) ERROR! 15 retries expired!" + "\n Сервер вернул статус: " + str(r.status_code) + "\n" + r.text)
+                error_return = 1
                 break
-            return "ChatGPT error! nothing will be send -__-" 
-
+    if error_return == 1:
+        return "ChatGPT error! nothing will be send -_-"
 
 gpt_text = get_text()
 
@@ -70,8 +73,6 @@ if "\n\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n\n", "")
 if "\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n", "\n")
-#if "- Совет" in gpt_text:
-#    gpt_text = gpt_text.replace("- Совет", "Совет")
 if "- Факт" in gpt_text:
     gpt_text = gpt_text.replace("- Факт", "Факт")
 if "- Цитата" in gpt_text:
@@ -84,5 +85,7 @@ if "Цитата дня" in gpt_text:
     gpt_text = gpt_text.replace("Цитата дня", "<b>Цитата дня")
 if "дня:" in gpt_text:
     gpt_text = gpt_text.replace("дня:", "дня:</b>")
+if "*" in gpt_text:
+    gpt_text = gpt_text.replace("*", "")
 if "</b>\n" in gpt_text:
     gpt_text = gpt_text.replace("</b>\n", "</b>")
