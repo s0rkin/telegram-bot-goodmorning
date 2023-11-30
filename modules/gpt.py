@@ -19,7 +19,6 @@ load_dotenv()
 
 #function get_text from chatgpt
 now = datetime.now()
-#check_day = now.strftime("%d день, %m месяц, %Y год.")
 check_day = now.strftime("%Y-%m-%d")
 
 header = {
@@ -36,9 +35,9 @@ post_info = {
     }
   ],
   "model": "gpt-3.5-turbo", #gpt-4
-  "temperature": 0.8, #chaptgpt recomend 0.7-1.0
+  "temperature": 0.8, 
   "presence_penalty": 0,
-  "top_p": 0.2, #chaptgpt recomend 0.7-1.0
+  "top_p": 0.2, 
   "frequency_penalty": 0,
   "stream": False
 }
