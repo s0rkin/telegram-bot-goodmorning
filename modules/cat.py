@@ -28,6 +28,7 @@ param = {
 
 #function get file cat
 def get_cat(num_retries = 10):
+    error_return = 0
     for attempt_no in range(num_retries):
         try:
             r = requests.get(os.getenv("CAT_URL"), headers = header, params = param)
@@ -40,5 +41,7 @@ def get_cat(num_retries = 10):
                 r = get_cat(num_retries - 1)
             else:
                 print("API (get_cat) ERROR! 10 retries expired!")
+                error_return = 1
                 break
-            return os.getenv("CAT_URL_404")
+    if error_return == 1:
+        return os.getenv("CAT_URL_404")
