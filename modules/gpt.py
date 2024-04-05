@@ -31,7 +31,7 @@ post_info = {
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня дата " + check_day + ". Напиши коротко на эту дату - совет дня, факт дня, цитату дня. Без пожеланий."
+        "content": "Сегодня " + check_day + ". Напиши коротко - совет дня, факт дня, цитату дня. Без пожеланий."
     }
   ],
   "model": "gpt-3.5-turbo", #gpt-4
@@ -78,6 +78,10 @@ if "- Факт" in gpt_text:
     gpt_text = gpt_text.replace("- Факт", "Факт")
 if "- Цитата" in gpt_text:
     gpt_text = gpt_text.replace("- Цитата", "Цитата")
+if " Факт" in gpt_text:
+    gpt_text = gpt_text.replace(" Факт", "Факт")
+if " Цитата" in gpt_text:
+    gpt_text = gpt_text.replace(" Цитата", "Цитата")
 if "Совет дня" in gpt_text:
     gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
 if "Факт дня" in gpt_text:
@@ -88,5 +92,7 @@ if "дня:" in gpt_text:
     gpt_text = gpt_text.replace("дня:", "дня:</b>")
 if "*" in gpt_text:
     gpt_text = gpt_text.replace("*", "")
+if "#" in gpt_text:
+    gpt_text = gpt_text.replace("#", "")
 if "</b>\n" in gpt_text:
     gpt_text = gpt_text.replace("</b>\n", "</b>")
