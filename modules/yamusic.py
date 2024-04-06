@@ -54,8 +54,9 @@ def yaMusic_chart(num_retries = 10):
             except:
                 if attempt_no < (num_retries - 1):
                     time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
-                    print("CURRENT RETRY (yaMusic_chart): " + str(num_retries - 1))
-                    yclient = yaMusic_chart(num_retries - 1)
+                    print("CURRENT RETRY (yaMusic_chart): " + str(num_retries))
+                    num_retries += -1
+                    continue
                 else:
                     print("Yandex API error: unavailable chart! 10 retries expired!")
                     error_return += 1
@@ -94,8 +95,9 @@ def yaMusic_file(num_retries = 10):
             except:
                 if attempt_no < (num_retries - 1):
                     time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
-                    print("CURRENT RETRY (yaMusic_file): " + str(num_retries - 1))
-                    yclient = yaMusic_file(num_retries - 1)
+                    print("CURRENT RETRY (yaMusic_file): " + str(num_retries))
+                    num_retries += -1
+                    continue
                 else:
                     print("API (yaMusic_file) ERROR! 10 retries expired!")
                     error_return += 1

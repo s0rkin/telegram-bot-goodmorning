@@ -55,8 +55,9 @@ def get_text(num_retries = 5):
             except:
                 if attempt_no < (num_retries - 1):
                     time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
-                    print("CURRENT RETRY (get_text): " + str(num_retries - 1) + "\n" + str(r.status_code) + "\n" + r.text)
-                    r = get_text(num_retries - 1)
+                    print("CURRENT RETRY (get_text): " + str(num_retries) + "\n" + str(r.status_code) + "\n" + r.text)
+                    num_retries += -1
+                    continue
                 else:
                     #print for debugging
                     print("API (get_text) ERROR! 15 retries expired!" + "\n Сервер вернул статус: " + str(r.status_code) + "\n" + r.text)

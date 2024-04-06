@@ -41,8 +41,9 @@ def get_weather(num_retries = 10):
             except:
                 if attempt_no < (num_retries - 1):
                     time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
-                    print("CURRENT RETRY (get_weather): " + str(num_retries - 1))
-                    r = get_weather(num_retries - 1)
+                    print("CURRENT RETRY (get_weather): " + str(num_retries))
+                    num_retries += -1
+                    continue
                 else:
                     print("API (get_weather) ERROR! 10 retries expired!")
                     error_return += 1
