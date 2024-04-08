@@ -64,8 +64,8 @@ async def main():
         uploaded = await client.upload_file(yamusic.yaMusic_file())
         #client.send_message need int for group only!
         #(os.getenv("TELEGRAM_USER") // (int(os.getenv("TELEGRAM_GROUP"))
-        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), calendar.get_day() + "\n\n" + gpt.gpt_text + "\n\n" + weather.get_weather() + "\n\n" + yamusic.yaMusic_chart() + "\n\n" + valute.get_valute() + "\n" + text_from, file=cat.get_cat(), parse_mode="html")
-        ret_value = await client.send_message(os.getenv("TELEGRAM_USER"), "Трек дня! ☝☝☝", file=uploaded, parse_mode="html")
+        ret_value = await client.send_message(int(os.getenv("TELEGRAM_GROUP")), calendar.get_day() + "\n\n" + gpt.gpt_text + "\n\n" + weather.get_weather() + "\n\n" + yamusic.yaMusic_chart() + "\n\n" + valute.get_valute() + "\n" + text_from, file=cat.get_cat(), parse_mode="html")
+        ret_value = await client.send_message(int(os.getenv("TELEGRAM_GROUP")), "Трек дня! ☝☝☝", file=uploaded, parse_mode="html")
     except Exception as e:
         print(f"Exception while sending the message - {e}")
     else:

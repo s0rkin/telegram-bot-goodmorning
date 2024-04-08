@@ -20,7 +20,6 @@ load_dotenv()
 now = datetime.now()
 #check_day = now.strftime("%d день, %m месяц, %Y год.")
 check_day = now.strftime("%Y год, %m месяц, %d день")
-print(check_day)
 
 header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
