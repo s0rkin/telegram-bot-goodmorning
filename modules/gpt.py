@@ -31,7 +31,7 @@ post_info = {
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня " + check_day + ". Напиши коротко - совет дня, факт дня, цитату дня. Без пожеланий."
+        "content": "Сегодня " + check_day + " дата. Напиши на эту дату коротко - совет дня, факт дня, цитату дня. Без пожеланий."
     }
   ],
   "model": "gpt-3.5-turbo", #gpt-4
@@ -44,27 +44,21 @@ post_info = {
 
 #function get_text from chatgpt
 def get_text(num_retries = 5):
-    error_return = 0
-    if error_return == 0:
-        for attempt_no in range(num_retries):
-            try:
-                r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
-                t = json.loads(r.text)
-                j = t["choices"][0]["message"]["content"]
-                return j
-            except:
-                if attempt_no < (num_retries - 1):
-                    time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
-                    print("CURRENT RETRY (get_text): " + str(num_retries) + "\n" + str(r.status_code) + "\n" + r.text)
-                    num_retries += -1
-                    continue
-                else:
-                    #print for debugging
-                    print("API (get_text) ERROR! 15 retries expired!" + "\n Сервер вернул статус: " + str(r.status_code) + "\n" + r.text)
-                    error_return += 1
-                    break
-    else:
-        return "ChatGPT error! nothing will be send -_-"
+    for attempt_no in range(num_retries):
+        try:
+            r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
+            t = json.loads(r.text)
+            j = t["choices"][0]["message"]["content"]
+            return j
+        except:
+            if attempt_no < (num_retries - 1):
+                time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
+                print("CURRENT RETRY (get_text): " + str(num_retries - attempt_no - 1) + "\n" + str(r.status_code) + "\n" + r.text)
+                continue
+            else:
+                #print for debugging
+                print("API (get_text) ERROR! " + str(num_retries) + " retries expired!" + "\n Сервер вернул статус: " + str(r.status_code) + "\n" + r.text)
+                return "ChatGPT error! nothing will be send -_-"
 
 gpt_text = get_text()
 
