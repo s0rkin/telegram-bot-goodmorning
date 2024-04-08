@@ -42,5 +42,5 @@ def get_weather(num_retries = 10):
                 print("CURRENT RETRY (get_weather): " + str(num_retries - attempt_no - 1))
                 continue
             else:
-                print("API (get_weather) ERROR! 10 retries expired!")
-                return "<b>Погода в Москве:</b> не удалось получить, API ERROR! " + str(num_retries) + " retry expired!"
+                print("API (get_weather) ERROR! " + str(num_retries) + " retries expired!")
+                return "<b>Погода в Москве:</b> не удалось получить, API ERROR!"
