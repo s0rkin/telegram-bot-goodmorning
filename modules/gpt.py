@@ -19,7 +19,8 @@ load_dotenv()
 
 now = datetime.now()
 #check_day = now.strftime("%d день, %m месяц, %Y год.")
-check_day = now.strftime("%Y-%m-%d")
+check_day = now.strftime("%Y год, %m месяц, %d день")
+print(check_day)
 
 header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
@@ -31,7 +32,7 @@ post_info = {
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня " + check_day + " дата. Напиши на эту дату коротко - совет дня, факт дня, цитату дня. Без пожеланий."
+        "content": "Сегодня " + check_day + ". Напиши коротко - совет дня, факт дня, цитату дня. Без пожеланий."
     }
   ],
   "model": "gpt-3.5-turbo", #gpt-4
@@ -43,7 +44,7 @@ post_info = {
 }
 
 #function get_text from chatgpt
-def get_text(num_retries = 5):
+def get_text(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
             r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
