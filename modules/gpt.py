@@ -19,7 +19,7 @@ load_dotenv()
 
 now = datetime.now()
 #check_day = now.strftime("%d день, %m месяц, %Y год.")
-check_day = now.strftime("%Y.%m.%d")
+check_day = now.strftime("%m месяц, %d день")
 
 header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
@@ -31,7 +31,7 @@ post_info = {
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "Сегодня " + check_day + " число. Напиши на сегодня коротко - совет дня, факт дня, цитату дня. Без пожеланий."
+        "content": "Сегодня " + check_day + ". Напиши коротко на сегодня - совет дня, факт дня, цитату дня. Без пожеланий."
     }
   ],
   "model": "gpt-3.5-turbo", #gpt-4
@@ -47,6 +47,7 @@ def get_text(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
             r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
+            print(r.text)
             t = json.loads(r.text)
             j = t["choices"][0]["message"]["content"]
             return j
