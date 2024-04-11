@@ -85,7 +85,7 @@ if "Факт дня" in gpt_text:
 if "Цитата дня" in gpt_text:
     gpt_text = gpt_text.replace("Цитата дня", "<b>Цитата дня")
 if "дня:" in gpt_text:
-    gpt_text = gpt_text.replace("дня:", "дня : </b>")
+    gpt_text = gpt_text.replace("дня:", "дня: </b>")
 if "*" in gpt_text:
     gpt_text = gpt_text.replace("*", "")
 if "#" in gpt_text:
