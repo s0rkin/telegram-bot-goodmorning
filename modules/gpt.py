@@ -76,6 +76,8 @@ if "- Цитата" in gpt_text:
     gpt_text = gpt_text.replace("- Цитата", "Цитата")
 if " Факт" in gpt_text:
     gpt_text = gpt_text.replace(" Факт", "Факт")
+if "Сегодняшний факт дня:" in gpt_text:
+    gpt_text = gpt_text.replace("Сегодняшний факт дня:", "")
 if " Цитата" in gpt_text:
     gpt_text = gpt_text.replace(" Цитата", "Цитата")
 if "Совет дня" in gpt_text:
