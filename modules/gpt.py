@@ -34,7 +34,7 @@ post_info = {
         "content": "Сегодня " + check_day + ". Напиши коротко на сегодня - совет дня, факт дня, цитату дня. Без пожеланий."
     }
   ],
-  "model": "gpt-3.5-turbo", #gpt-4
+  "model": 'gpt-4o-mini', #gpt-4
   "temperature": 1, #chaptgpt recomend 0.7-1.0
   "presence_penalty": 0,
   "top_p": 1, #chaptgpt recomend 0.7-1.0
@@ -50,7 +50,27 @@ def get_text(num_retries = 10):
             print(r.text)
             t = json.loads(r.text)
             j = t["choices"][0]["message"]["content"]
-            return j
+            #if GPT send stream: False
+            if "data:" in j:
+                lines = j.strip().split("\n\n")
+                result = ""
+                for line in lines:
+                    try:
+                        json_str = line.replace("data: ", "")
+                        
+                        if not json_str.strip():
+                            continue
+
+                        obj = json.loads(json_str)
+
+                        if isinstance(obj, dict) and "content" in obj and obj["content"]:
+                            result += obj["content"]
+                    except json.JSONDecodeError as e:
+                        print(f"Ошибка декодирования JSON: {e}. Строка: {line}")
+                        continue
+                return result
+            else:
+                return j
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
