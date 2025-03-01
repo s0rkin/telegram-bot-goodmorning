@@ -71,7 +71,7 @@ HEADER_AUTHORIZATION - this is authorization for GPT! - see more in <code>gpt.py
 WEATHER_API_KEY - key for openweathermap its free, google it.
 </p>
 <p>
-YANDEX_TOKEN - google it. TOKEN for yandex music app.
+YANDEX_TOKEN for yandex music app. https://github.com/MarshalX/yandex-music-api/tree/main
 </p>
 <p>
 CAT_API_KEY - key for api.thecatapi.com its free, google it.
