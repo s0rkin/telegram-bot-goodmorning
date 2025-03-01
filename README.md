@@ -17,6 +17,9 @@
 <p>
 FOR YAMUSIC need python3.7!!! its very important!
 </p>
+<p>
+  FOR GPT good idea - use Gpt4free https://github.com/xtekky/gpt4free/tree/main
+</p>
 <br>
 <p>CONFIG in <code>.env</code>:
 <code>
