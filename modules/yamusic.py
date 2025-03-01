@@ -66,7 +66,11 @@ def yaMusic_file(num_retries = 10):
             #available setting's for mood_energy: fun, active, calm, sad, all.
             #available setting's for diversity: favorite, popular, discover, default.
             #available setting's for language: not-russian, russian, any.
-            set_settings = yclient.rotor_station_settings2(station = "user:onyourwave", mood_energy = "active", diversity = "popular", language = "not-russian")
+            random_mood = ["fun", "active", "calm", "sad", "all"]
+            random_diversity = ["favorite", "popular", "discover", "default"]
+            random_lang = ["not-russian","russian"]
+
+            set_settings = yclient.rotor_station_settings2(station = "user:onyourwave", mood_energy = random.choice(random_mood), diversity = random.choice(random_diversity), language = random.choice(random_lang))
             
             getTrack = yclient.rotor_station_tracks(station = "user:onyourwave", settings2 = set_settings)
             getTrackInfo = random.choice(getTrack["sequence"]) #random choice track
