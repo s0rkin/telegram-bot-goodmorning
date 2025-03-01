@@ -66,17 +66,14 @@ def yaMusic_file(num_retries = 10):
             #available setting's for mood_energy: fun, active, calm, sad, all.
             #available setting's for diversity: favorite, popular, discover, default.
             #available setting's for language: not-russian, russian, any.
-            setStation = yclient.rotor_station_settings2(station = "user:onyourwave", mood_energy = "active", diversity = "popular", language = "any")
-            print(setStation)
-
-            #FETCH last track for getTrack.
-            #music = yclient.users_likes_tracks()[0].fetch_track()
-            getTrack = yclient.rotor_station_tracks(station = "user:onyourwave", settings2 = True)
-            getTrackInfo = getTrack["sequence"][random.randint(0,4)] #random track from onyourwave. (onyourwave send only 5 tracks, random it 1-5)
+            set_settings = yclient.rotor_station_settings2(station = "user:onyourwave", mood_energy = "active", diversity = "popular", language = "not-russian")
+            
+            getTrack = yclient.rotor_station_tracks(station = "user:onyourwave", settings2 = set_settings)
+            getTrackInfo = random.choice(getTrack["sequence"]) #random choice track
             getTrackId = getTrackInfo["track"]["id"]
 
             #musicFile download track from yaMusic to PATH_FOR_MUSIC
-            musicFile = yclient.tracks_download_info(track_id=getTrackId)[0].download(file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + ".mp3")
+            yclient.tracks_download_info(track_id=getTrackId)[0].download(file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + ".mp3")
             
             #musicFilePath for client.send_message telegram, send mp3 file.
             musicFilePath = file_path + str.capitalize(getTrackInfo["track"]["artists"][0]["name"]) + " - " + str.capitalize(getTrackInfo["track"]["title"]) + ".mp3"
