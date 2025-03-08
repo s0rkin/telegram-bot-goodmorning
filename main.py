@@ -4,73 +4,85 @@
 # Created By  : s0rkin
 # Created Date: Jul 4, 2022
 # Links       : https://github.com/s0rkin/
-# version ='2.1'
+# version ='2.2'
 # ---------------------------------------------------------------------------
+
 import os
 from datetime import datetime
+import json
 
 #import modules
-from modules import workday, cat, gpt, valute, yamusic, weather
-
-#import telethon
-from telethon.sync import TelegramClient
-from telethon.sessions import StringSession
+from modules import workday, cat, gpt, valute, yamusic, weather, fact, wisdom
+import telebot
 
 #load file .env config
 from dotenv import load_dotenv
 load_dotenv()
 
-#TODO: \n\n need on send message only! not for def's!!!
-#TODO: see yamusic.py for refactoring
-#TODO: need fix - int(os.getenv) - when group. Exception while sending the message - Cannot find any entity corresponding to "-1001312137891"
-#TODO: music?
-#TODO: mb new def need.
-
 #get current date/time
 now = datetime.now()
 
 #text_from text for telegram
-text_from = '<code>Сгенерировано нейросетью ChatGPT! by s0rry</code>'
+text_from = "<code>Сгенерировано нейросетью ChatGPT! by s0rry</code>"
 
 print("---------------------------------------------------------------------------")
 print(now)
 
-#print("START TESTS!")
-#print("test for get_cat: " + cat.get_cat())
-#print("---------------------------------------------------------------------------")
-#print("test for get_day: " + calendar.get_day())
-#print("---------------------------------------------------------------------------")
-#print("test for get_text: " + gpt.gpt_text)
-#print("---------------------------------------------------------------------------")
-#print("test for get_weather: " + weather.get_weather())
-#print("---------------------------------------------------------------------------")
-#print("test for get_valute: " + valute.get_valute())
-#
-#print("END TESTS!")
-#print("---------------------------------------------------------------------------")
+# Инициализация бота
+bot = telebot.TeleBot(os.getenv("TELEGRAM_TOKEN"))
+array_as_string = os.getenv("TELEGRAM_GROUP")
 
-#TELEGRAM: Start client.
-try:
-    client = TelegramClient(StringSession(os.getenv("TELEGRAM_STRING_SESSION")), os.getenv("TELEGRAM_API_ID"), os.getenv("TELEGRAM_API_HASH"))
-    client.start()
-except Exception as e:
-    print(f"Exception while starting the client - {e}")
-else:
-    print("Client started")
+# join groups in array
+group_ids = json.loads(array_as_string)
 
-#main function for send message to telegram chat
-async def main():
-    try:
-        uploaded = await client.upload_file(yamusic.yaMusic_file())
-        #client.send_message need int for group only!
-        #(os.getenv("TELEGRAM_USER") // (int(os.getenv("TELEGRAM_GROUP"))
-        ret_value = await client.send_message(int(os.getenv("TELEGRAM_GROUP")), workday.get_day() + "\n\n" + gpt.gpt_text + "\n\n" + weather.get_weather() + "\n\n" + yamusic.yaMusic_chart() + "\n\n" + valute.get_valute() + "\n" + text_from, file=cat.get_cat(), parse_mode="html")
-        ret_value = await client.send_message(int(os.getenv("TELEGRAM_GROUP")), "Трек дня! ☝☝☝", file=uploaded, parse_mode="html")
-    except Exception as e:
-        print(f"Exception while sending the message - {e}")
-    else:
-        print(f"Message sent. Return Value {ret_value}")
+#add values
+work_day = workday.get_day()
+weather_text = weather.get_weather()
+gpt_text = gpt.gpt_fix_text
+yamusic_text = yamusic.yaMusic_chart()
+valute_text = valute.get_valute()
+fact_text = fact.get_random_fact()
+wisdom_text = wisdom.get_random_wisdom()
+cat_url = cat.get_cat()
 
-#end and close when main() complete.
-with client:
-    client.loop.run_until_complete(main())
+
+# main function
+def main():
+    # catch music file
+    file_path = yamusic.yaMusic_file()
+
+    # check music file path
+    if not os.path.exists(file_path):
+        print(f"Файл не существует: {file_path}")
+        return
+    elif os.path.getsize(file_path) == 0:
+        print(f"Файл пустой: {file_path}")
+        return
+
+    # send msg's for groups
+    for group_id in group_ids:
+        try:
+            #send photo (CAT_URL + text)
+            bot.send_photo(
+                group_id,
+                cat_url,
+                caption=work_day + "\n\n" + gpt_text + fact_text + wisdom_text + "\n\n" + weather_text + "\n\n" + yamusic_text + "\n\n" + valute_text + "\n" + text_from,
+                parse_mode="html"
+            )
+
+            # open music file and send it
+            with open(file_path, 'rb') as uploaded:
+                bot.send_audio(
+                    group_id,
+                    uploaded,
+                    caption="Трек дня! ☝☝☝"
+                )
+
+        except Exception as e:
+            print(f"Ошибка при отправке сообщения в группу {group_id}: {e}")
+        else:
+            print(f"Сообщения успешно отправлены в группу {group_id}")
+
+#start main
+if __name__ == "__main__":
+    main()

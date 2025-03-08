@@ -2,20 +2,17 @@
 ![Screenshot_1](https://user-images.githubusercontent.com/12657938/235433999-d8163841-6a49-49e1-a67c-31f1a71cb5d5.png)
 ![Screenshot_2](https://user-images.githubusercontent.com/12657938/235433924-9e9af9e4-521d-4e42-bb51-96fc7ff224a4.png)
 
-<p>Current ver. 2.1
+<p>Current ver. 2.2
 <code>
-*add GPT
-*refactoring
-*add mass config's
-*add modules
-*fix's
+*add python 3.8
+*delete telethon
+*add telebot
+*add new modules - fact/wisdom
+*small fix'es
 </code>
 </p>
 <p>Installing libraries:
 <code>pip3 install -r ./requirements.txt</code>
-</p>
-<p>
-FOR YAMUSIC need python3.7!!! its very important!
 </p>
 <br>
 <p>CONFIG in <code>.env</code>:
@@ -24,6 +21,7 @@ FOR YAMUSIC need python3.7!!! its very important!
   TELEGRAM_API_ID=
   TELEGRAM_API_
   TELEGRAM_STRING_SESSION=
+  TELEGRAM_TOKEN=
   WEATHER_API_KEY=
   CAT_URL="https://api.thecatapi.com/api/images/get"
   CAT_URL_404=

@@ -2,3 +2,6 @@
 .gitignore
 test.py
 test222.py
+testjson.py
+/modules/__pycache__/
+/goodmorning-venv/

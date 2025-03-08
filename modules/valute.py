@@ -4,7 +4,7 @@
 # Created By  : s0rkin
 # Created Date: Jul 4, 2022
 # Links       : https://github.com/s0rkin/
-# version ='2.1'
+# version ='2.2
 # ---------------------------------------------------------------------------
 
 import os
