@@ -14,6 +14,9 @@
 <p>Installing libraries:
 <code>pip3 install -r ./requirements.txt</code>
 </p>
+<p>
+  FOR GPT good idea - use Gpt4free https://github.com/xtekky/gpt4free/tree/main
+</p>
 <br>
 <p>CONFIG in <code>.env</code>:
 <code>
@@ -66,7 +69,7 @@ HEADER_AUTHORIZATION - this is authorization for GPT! - see more in <code>gpt.py
 WEATHER_API_KEY - key for openweathermap its free, google it.
 </p>
 <p>
-YANDEX_TOKEN - google it. TOKEN for yandex music app.
+YANDEX_TOKEN for yandex music app. https://github.com/MarshalX/yandex-music-api/tree/main
 </p>
 <p>
 CAT_API_KEY - key for api.thecatapi.com its free, google it.
