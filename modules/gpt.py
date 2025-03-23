@@ -24,7 +24,7 @@ header = {
     }
 
 post_info = {
-  "model": 'gpt-4o-mini', #gpt-4
+  "model": "gpt-4", #gpt-4
   "temperature": 0.9, #chaptgpt recomend 0.7-1.0
   "stream": False, 
   "messages": [
