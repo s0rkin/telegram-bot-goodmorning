@@ -27,10 +27,11 @@ post_info = {
   "model": "gpt-4", #gpt-4
   "temperature": 0.9, #chaptgpt recomend 0.7-1.0
   "stream": False, 
+  "provider": "PollinationsAI", #Copilot #TODO: Need get all models and push it 
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
-        "content": "напиши короткий совет дня"
+        "content": "напиши короткий, уникальный совет дня"
     }
   ]
 }
@@ -101,6 +102,8 @@ if '"' in gpt_text:
     gpt_text = gpt_text.replace('"', '')
 if "дня:" in gpt_text:
     gpt_text = gpt_text.replace("дня:", "дня: </b>")
+if "<b>Совет дня: </b>Совет дня: </b>" in gpt_text:
+    gpt_text = gpt_text.replace("<b>Совет дня: </b>Совет дня: </b>", "<b>Совет дня: </b>")
 if "</b>\n" in gpt_text:
     gpt_text = gpt_text.replace("</b>\n", "</b>")
 
