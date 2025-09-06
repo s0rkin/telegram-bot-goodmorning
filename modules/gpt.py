@@ -27,7 +27,6 @@ post_info = {
   "model": "gpt-4", #gpt-4
   "temperature": 0.9, #chaptgpt recomend 0.7-1.0
   "stream": False, 
-  "provider": "PollinationsAI", #Copilot #TODO: Need get all models and push it 
   "messages": [
     {
         "role": "user", #role's (system, assistant, user)
