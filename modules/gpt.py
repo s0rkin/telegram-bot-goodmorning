@@ -42,6 +42,7 @@ def get_text(num_retries = 10):
             r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
             print(r.text)
             t = json.loads(r.text)
+            print(t)
             j = t["choices"][0]["message"]["content"]
             #if GPT send in json streaming text...
             if "data:" in j:
@@ -83,6 +84,8 @@ gpt_text = get_text()
 
 if "Совет дня" in gpt_text:
     gpt_text = gpt_text[gpt_text.rfind("Совет дня"):] #remove everything before "Совет дня"
+if "#" in gpt_text:
+    gpt_text = gpt_text.replace("#", "")
 if "\n\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n\n", "")
 if "\n\n" in gpt_text:
