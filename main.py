@@ -25,7 +25,6 @@ now = datetime.now()
 #text_from text for telegram
 text_from = "<code>Сгенерировано нейросетью ChatGPT! by s0rry</code>"
 
-print("---------------------------------------------------------------------------")
 print(now)
 
 # Инициализация бота
