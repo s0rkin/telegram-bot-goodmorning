@@ -84,24 +84,25 @@ gpt_text = get_text()
 
 if "Совет дня" in gpt_text:
     gpt_text = gpt_text[gpt_text.rfind("Совет дня"):] #remove everything before "Совет дня"
-if "#" in gpt_text:
-    gpt_text = gpt_text.replace("#", "")
-if "\n\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n\n", "")
-if "\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n", "\n")
-if "Сегодняшний совет дня:" in gpt_text:
-    gpt_text = gpt_text.replace("Сегодняшний совет дня:", "Совет дня:")
-if "Совет дня" in gpt_text:
-    gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
-if "Сегодняшний совет" in gpt_text:
-    gpt_text = gpt_text.replace("Сегодняшний совет", "Совет дня")
+#delete all unwanted symbols
 if "*" in gpt_text:
     gpt_text = gpt_text.replace("*", "")
 if "#" in gpt_text:
     gpt_text = gpt_text.replace("#", "")
 if '"' in gpt_text:
     gpt_text = gpt_text.replace('"', '')
+#fix all unwanted spaces and new lines
+if "\n\n\n" in gpt_text:
+    gpt_text = gpt_text.replace("\n\n\n", "")
+if "\n\n" in gpt_text:
+    gpt_text = gpt_text.replace("\n\n", "\n")
+#fix all unwanted duplicates and wrong words
+if "Сегодняшний совет дня:" in gpt_text:
+    gpt_text = gpt_text.replace("Сегодняшний совет дня:", "Совет дня:")
+if "Совет дня" in gpt_text:
+    gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
+if "Сегодняшний совет" in gpt_text:
+    gpt_text = gpt_text.replace("Сегодняшний совет", "Совет дня")
 if "дня:" in gpt_text:
     gpt_text = gpt_text.replace("дня:", "дня: </b>")
 if "<b>Совет дня: </b>Совет дня: </b>" in gpt_text:
@@ -109,4 +110,5 @@ if "<b>Совет дня: </b>Совет дня: </b>" in gpt_text:
 if "</b>\n" in gpt_text:
     gpt_text = gpt_text.replace("</b>\n", "</b>")
 
+#save fixed text for send
 gpt_fix_text = gpt_text
