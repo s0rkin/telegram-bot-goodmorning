@@ -40,7 +40,6 @@ def get_text(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
             r = requests.post(os.getenv("GPT_URL"), headers = header, json = post_info)
-            print(r.text)
             t = json.loads(r.text)
             print(t)
             j = t["choices"][0]["message"]["content"]
@@ -84,6 +83,7 @@ gpt_text = get_text()
 
 if "Совет дня" in gpt_text:
     gpt_text = gpt_text[gpt_text.rfind("Совет дня"):] #remove everything before "Совет дня"
+
 #delete all unwanted symbols
 if "*" in gpt_text:
     gpt_text = gpt_text.replace("*", "")
@@ -91,24 +91,25 @@ if "#" in gpt_text:
     gpt_text = gpt_text.replace("#", "")
 if '"' in gpt_text:
     gpt_text = gpt_text.replace('"', '')
+
 #fix all unwanted spaces and new lines
 if "\n\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n\n", "")
 if "\n\n" in gpt_text:
     gpt_text = gpt_text.replace("\n\n", "\n")
+
 #fix all unwanted duplicates and wrong words
 if "Сегодняшний совет дня:" in gpt_text:
     gpt_text = gpt_text.replace("Сегодняшний совет дня:", "Совет дня:")
-if "Совет дня" in gpt_text:
-    gpt_text = gpt_text.replace("Совет дня", "<b>Совет дня")
 if "Сегодняшний совет" in gpt_text:
-    gpt_text = gpt_text.replace("Сегодняшний совет", "Совет дня")
-if "дня:" in gpt_text:
-    gpt_text = gpt_text.replace("дня:", "дня: </b>")
-if "<b>Совет дня: </b>Совет дня: </b>" in gpt_text:
-    gpt_text = gpt_text.replace("<b>Совет дня: </b>Совет дня: </b>", "<b>Совет дня: </b>")
-if "</b>\n" in gpt_text:
-    gpt_text = gpt_text.replace("</b>\n", "</b>")
+    gpt_text = gpt_text.replace("Сегодняшний совет", "Совет дня:")
+
+#add bold to "Совет дня:"
+if "Совет дня:" in gpt_text:
+    gpt_text = gpt_text.replace("Совет дня:", "<b>Совет дня:</b>")
 
 #save fixed text for send
 gpt_fix_text = gpt_text
+print("---DEBUG---")
+print(gpt_fix_text)
+print("---END DEBUG---")
