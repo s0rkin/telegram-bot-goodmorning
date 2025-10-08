@@ -106,7 +106,11 @@ if "Сегодняшний совет" in gpt_text:
 
 #add bold to "Совет дня:"
 if "Совет дня:" in gpt_text:
-    gpt_text = gpt_text.replace("Совет дня:", "<b>Совет дня:</b>")
+    gpt_text = gpt_text.replace("Совет дня:", "<b>Совет дня: </b>")
+if "Совет дня\n" in gpt_text:
+    gpt_text = gpt_text.replace("Совет дня\n", "<b>Совет дня: </b>")
+if "</b>\n" in gpt_text:
+    gpt_text = gpt_text.replace("</b>\n", "</b>")
 
 #save fixed text for send
 gpt_fix_text = gpt_text
