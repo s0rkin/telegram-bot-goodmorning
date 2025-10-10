@@ -25,13 +25,25 @@ header = {
 
 post_info = {
   "model": "gpt-4", #gpt-4
-  "temperature": 0.9, #chaptgpt recomend 0.7-1.0
+  "temperature": 0.7, #chaptgpt recomend 0.7-1.0
   "stream": False, 
   "messages": [
-    {
-        "role": "user", #role's (system, assistant, user)
-        "content": "напиши короткий, уникальный совет дня"
-    }
+      {
+          "role": "system",
+          "content": "Ты генератор советов. Отвечай строго в указанном формате."
+      },
+      {
+          "role": "user", 
+          "content": "Напиши совет дня"
+      },
+      {
+          "role": "assistant",
+          "content": "Совет дня: Сначала делай самое сложное задание 🎯"
+      },
+      {
+          "role": "user",
+          "content": "Напиши уникальный совет дня"
+      }
   ]
 }
 
@@ -81,39 +93,6 @@ def get_text(num_retries = 10):
 #Convert text for telegram
 gpt_text = get_text()
 
-if "Совет дня" in gpt_text:
-    gpt_text = gpt_text[gpt_text.rfind("Совет дня"):] #remove everything before "Совет дня"
-
-#delete all unwanted symbols
-if "*" in gpt_text:
-    gpt_text = gpt_text.replace("*", "")
-if "#" in gpt_text:
-    gpt_text = gpt_text.replace("#", "")
-if '"' in gpt_text:
-    gpt_text = gpt_text.replace('"', '')
-
-#fix all unwanted spaces and new lines
-if "\n\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n\n", "")
-if "\n\n" in gpt_text:
-    gpt_text = gpt_text.replace("\n\n", "\n")
-
-#fix all unwanted duplicates and wrong words
-if "Сегодняшний совет дня:" in gpt_text:
-    gpt_text = gpt_text.replace("Сегодняшний совет дня:", "Совет дня:")
-if "Сегодняшний совет" in gpt_text:
-    gpt_text = gpt_text.replace("Сегодняшний совет", "Совет дня:")
-
-#add bold to "Совет дня:"
-if "Совет дня:" in gpt_text:
-    gpt_text = gpt_text.replace("Совет дня:", "<b>Совет дня: </b>")
-if "Совет дня\n" in gpt_text:
-    gpt_text = gpt_text.replace("Совет дня\n", "<b>Совет дня: </b>")
-if "</b>\n" in gpt_text:
-    gpt_text = gpt_text.replace("</b>\n", "</b>")
-
-#save fixed text for send
-gpt_fix_text = gpt_text
 print("---DEBUG---")
-print(gpt_fix_text)
+print(gpt_text)
 print("---END DEBUG---")
