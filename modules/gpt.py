@@ -77,9 +77,9 @@ def get_text(num_retries = 10):
                     except json.JSONDecodeError as e:
                         print(f"Ошибка декодирования JSON: {e}. Строка: {line}")
                         continue
-                return "Совет дня:" + result
+                return result
             else:
-                return "Совет дня:" + j
+                return j
         except:
             if attempt_no < (num_retries - 1):
                 time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!

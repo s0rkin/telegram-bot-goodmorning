@@ -37,7 +37,7 @@ group_ids = json.loads(array_as_string)
 #add values
 work_day = workday.get_day()
 weather_text = weather.get_weather()
-gpt_text = gpt.gpt_fix_text
+gpt_text = gpt.gpt_text
 yamusic_text = yamusic.yaMusic_chart()
 valute_text = valute.get_valute()
 fact_text = fact.get_random_fact()
