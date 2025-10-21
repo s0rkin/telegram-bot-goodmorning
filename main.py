@@ -37,21 +37,12 @@ group_ids = json.loads(array_as_string)
 #add values
 work_day = workday.get_day()
 weather_text = weather.get_weather()
-gpt_text = gpt.gpt_text
+gpt_text = gpt.gpt_fix_text
 yamusic_text = yamusic.yaMusic_chart()
 valute_text = valute.get_valute()
 fact_text = fact.get_random_fact()
 wisdom_text = wisdom.get_random_wisdom()
 cat_url = cat.get_cat()
-
-#print(work_day)
-#print(weather_text)
-#print(gpt_text)
-#print(yamusic_text)
-#print(valute_text)
-#print(fact_text)
-#print(wisdom_text)
-#print(cat_url)
 
 # main function
 def main():

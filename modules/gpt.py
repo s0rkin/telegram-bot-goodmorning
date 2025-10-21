@@ -93,6 +93,11 @@ def get_text(num_retries = 10):
 #Convert text for telegram
 gpt_text = get_text()
 
+if "Совет дня:" in gpt_text:
+    gpt_text = gpt_text.replace("Совет дня:", "<b>Совет дня:</b>")
+
+gpt_fix_text = gpt_text
+
 print("---DEBUG---")
-print(gpt_text)
+print(gpt_fix_text)
 print("---END DEBUG---")
