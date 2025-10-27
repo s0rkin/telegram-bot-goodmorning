@@ -26,7 +26,7 @@
   TELEGRAM_STRING_SESSION=
   TELEGRAM_TOKEN=
   WEATHER_API_KEY=
-  CAT_URL="https://api.thecatapi.com/api/images/get"
+  CAT_URL="https://api.thecatapi.com/v1/images/search"
   CAT_URL_404=
   CAT_API=
   CALENDAR_URL="https://api.sm.su/v1/calendar/business/"
