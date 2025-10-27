@@ -17,11 +17,12 @@ load_dotenv()
 
 header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
-    "X-Requested-With": os.getenv("HEADER_REQUEST")
+    "X-Requested-With": os.getenv("HEADER_REQUEST"),
+    "Content-Type": "application/json",
+    "x-api-key": os.getenv("CAT_API"),
     }
 
 param = {
-    "api_key": os.getenv("CAT_API"), 
     "mime_types": "jpg,png", 
     "format": "src"
     }

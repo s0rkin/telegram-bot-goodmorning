@@ -44,6 +44,17 @@ fact_text = fact.get_random_fact()
 wisdom_text = wisdom.get_random_wisdom()
 cat_url = cat.get_cat()
 
+print("---------------------------------------------------------------------------")
+print(work_day)
+print(weather_text)
+print(gpt_text)
+print(yamusic_text)
+print(valute_text)
+print(fact_text)
+print(wisdom_text)
+print(cat_url)
+print("---------------------------------------------------------------------------")
+
 # main function
 def main():
     # catch music file
