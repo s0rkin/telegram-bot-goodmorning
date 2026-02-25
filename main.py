@@ -14,6 +14,7 @@ import json
 #import modules
 from modules import workday, cat, gpt, valute, yamusic, weather, fact, wisdom
 import telebot
+from telebot import apihelper
 
 #load file .env config
 from dotenv import load_dotenv
@@ -54,6 +55,11 @@ print(fact_text)
 print(wisdom_text)
 print(cat_url)
 print("---------------------------------------------------------------------------")
+
+apihelper.proxy = {
+    "http": os.getenv("PROXY_HOST"),
+    "https": os.getenv("PROXY_HOST"),
+}
 
 # main function
 def main():

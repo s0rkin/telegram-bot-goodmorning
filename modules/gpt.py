@@ -25,6 +25,7 @@ header = {
 
 post_info = {
   "model": "gpt-4", #gpt-4
+  "provider": "Yqcloud",
   "temperature": 0.7, #chaptgpt recomend 0.7-1.0
   "stream": False, 
   "messages": [

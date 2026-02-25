@@ -27,11 +27,16 @@ param = {
     "format": "src"
     }
 
+proxies_socks = {
+    "http": os.getenv("PROXY_HOST"),
+    "https": os.getenv("PROXY_HOST"),
+}
+
 #function get file cat
 def get_cat(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
-            r = requests.get(os.getenv("CAT_URL"), headers = header, params = param)
+            r = requests.get(os.getenv("CAT_URL"), headers = header, params = param, proxies=proxies_socks)
             url = r.url
             return url
         except:
