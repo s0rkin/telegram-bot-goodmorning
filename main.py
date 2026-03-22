@@ -10,6 +10,7 @@
 import os
 from datetime import datetime
 import json
+import time
 
 #import modules
 from modules import workday, cat, gpt, valute, yamusic, weather, fact, wisdom
@@ -78,6 +79,7 @@ def main():
     for group_id in group_ids:
         try:
             #send photo (CAT_URL + text)
+            time.sleep(3)
             bot.send_photo(
                 group_id,
                 cat_url,
@@ -86,6 +88,7 @@ def main():
             )
 
             # open music file and send it
+            time.sleep(3)
             with open(file_path, 'rb') as uploaded:
                 bot.send_audio(
                     group_id,
