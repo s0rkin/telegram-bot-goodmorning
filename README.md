@@ -4,7 +4,7 @@
 
 <p>Current ver. 2.2
 <code>
-*add python 3.8
+*add python 3.10+
 *delete telethon
 *add telebot
 *add new modules - fact/wisdom
