@@ -72,7 +72,6 @@ HEADER_AUTHORIZATION=
 ## Как получить данные Telegram
 
 1. Зарегистрировать приложение в Telegram и получить `API_ID` и `API_HASH`.
-2. Сформировать `STRING_SESSION` через `get_string_session.py`.
 
 ## Запуск
 
