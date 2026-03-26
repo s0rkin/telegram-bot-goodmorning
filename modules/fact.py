@@ -31,7 +31,7 @@ def get_random_fact(num_retries = 10):
             return "\n<b>Факт дня:</b> " + t["fact"]["text"]
         except:
             if attempt_no < (num_retries - 1):
-                time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
+                time.sleep(15) #wait 15 sec for api response if have error. DONT SPAM!
                 print("CURRENT RETRY (get_random_fact): " + str(num_retries - attempt_no - 1))
                 continue
             else:

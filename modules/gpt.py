@@ -24,7 +24,7 @@ header = {
     }
 
 post_info = {
-  "model": "gpt-4", #gpt-4
+  "model": "gpt-4",
   "provider": "Yqcloud",
   "temperature": 0.7, #chaptgpt recomend 0.7-1.0
   "stream": False, 
@@ -83,11 +83,10 @@ def get_text(num_retries = 10):
                 return j
         except:
             if attempt_no < (num_retries - 1):
-                time.sleep(60) #wait 60sec for api response if have error. DONT SPAM!
+                time.sleep(15) #wait 15 sec for api response if have error. DONT SPAM!
                 print("CURRENT RETRY (get_text): " + str(num_retries - attempt_no - 1) + "\n" + str(r.status_code) + "\n" + r.text)
                 continue
             else:
-                #print for debugging
                 print("API (get_text) ERROR! " + str(num_retries) + " retries expired!" + "\n Сервер вернул статус: " + str(r.status_code) + "\n" + r.text)
                 return "ChatGPT error! nothing will be send -_-"
 
@@ -98,7 +97,3 @@ if "Совет дня:" in gpt_text:
     gpt_text = gpt_text.replace("Совет дня:", "<b>Совет дня:</b>")
 
 gpt_fix_text = gpt_text
-
-print("---DEBUG---")
-print(gpt_fix_text)
-print("---END DEBUG---")

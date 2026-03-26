@@ -38,7 +38,7 @@ def get_weather(num_retries = 10):
             return "<b>Погода в Москве:</b> " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
         except:
             if attempt_no < (num_retries - 1):
-                time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
+                time.sleep(15) #wait 15 for api response if have error. DONT SPAM!
                 print("CURRENT RETRY (get_weather): " + str(num_retries - attempt_no - 1))
                 continue
             else:

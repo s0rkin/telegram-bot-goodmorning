@@ -46,7 +46,7 @@ def get_day(num_retries = 10):
                 return "Доброе утро!☝ Сегодня ХЗ какой день."
         except:
             if attempt_no < (num_retries - 1):
-                time.sleep(30) #wait 30sec for api response if have error. DONT SPAM!
+                time.sleep(15) #wait 15 for api response if have error. DONT SPAM!
                 print("CURRENT RETRY (get_day): " + str(num_retries - attempt_no - 1))
                 continue
             else:
