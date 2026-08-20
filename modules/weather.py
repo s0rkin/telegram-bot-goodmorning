@@ -21,6 +21,11 @@ header = {
     "X-Requested-With": os.getenv("HEADER_REQUEST")
     }
 
+proxies_socks = {
+    "http": os.getenv("PROXY_HOST"),
+    "https": os.getenv("PROXY_HOST"),
+}
+
 param = {
     "id": 524901,
     "type": "like", 
@@ -32,7 +37,7 @@ param = {
 def get_weather(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
-            r = requests.get(os.getenv("WEATHER_URL"), headers = header, params = param)
+            r = requests.get(os.getenv("WEATHER_URL"), headers = header, params = param, proxies=proxies_socks)
             t = json.loads(r.text)
             
             return "<b>Погода в Москве:</b> " + (str(int(t["main"]["temp"]))) + "°C " + t["weather"][0]["description"] + ", ощущается как " + (str(int(t["main"]["feels_like"])) + "°C")
