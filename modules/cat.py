@@ -10,6 +10,7 @@
 import os
 import requests
 import time
+import json
 
 #load file .env config
 from dotenv import load_dotenv
@@ -19,7 +20,7 @@ header = {
     "User-Agent": os.getenv("HEADER_AGENT"),
     "X-Requested-With": os.getenv("HEADER_REQUEST"),
     "Content-Type": "application/json",
-    "x-api-key": os.getenv("CAT_API"),
+#    "x-api-key": os.getenv("CAT_API"), # if api key set say "Account not found or inactive"...
     }
 
 param = {
@@ -37,7 +38,8 @@ def get_cat(num_retries = 10):
     for attempt_no in range(num_retries):
         try:
             r = requests.get(os.getenv("CAT_URL"), headers = header, params = param, proxies=proxies_socks)
-            url = r.url
+            j = json.loads(r.text)
+            url = j[0]["url"]
             return url
         except:
             if attempt_no < (num_retries - 1):
